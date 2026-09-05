@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0d12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DJ Finanzas">
+<link rel="manifest" href="manifest.webmanifest">
+<title>DJ Finanzas</title>
+<style>
+:root{--bg:#0b0d12;--card:#151923;--text:#f6f7fb;--muted:#9da4b3;--gold:#d6aa52;--green:#4bd489;--red:#ff6f7b;--line:#272c38}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#0b0d12,#121621);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",Arial,sans-serif;padding-bottom:96px;min-height:100vh}
+header{padding:48px 20px 18px;position:sticky;top:0;background:rgba(11,13,18,.92);backdrop-filter:blur(18px);z-index:3;border-bottom:1px solid rgba(255,255,255,.04)}
+h1{margin:0;font-size:30px}.sub{color:var(--muted);margin-top:4px;font-size:14px}
+main{padding:0 16px;max-width:760px;margin:auto}.month{display:flex;align-items:center;justify-content:space-between;margin:12px 0 18px}.month button{width:42px;height:42px;border:0;border-radius:14px;background:var(--card);color:white;font-size:22px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:17px}.wide{grid-column:1/-1}.label{font-size:13px;color:var(--muted)}.value{font-size:25px;font-weight:800;margin-top:7px}.balance{padding:23px;text-align:center;background:linear-gradient(135deg,#1c2230,#11151e);border-radius:25px;border:1px solid #303646;margin-bottom:12px}.balance .value{font-size:39px;color:var(--gold)}
+.section{margin:24px 0 10px;font-size:18px;font-weight:800}.row{display:flex;justify-content:space-between;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.green{color:var(--green)}.red{color:var(--red)}
+button.primary{width:100%;border:0;border-radius:17px;padding:14px;background:var(--gold);color:#17120a;font-weight:800;font-size:16px;margin-top:12px}
+nav{position:fixed;bottom:0;left:0;right:0;background:rgba(15,17,24,.96);backdrop-filter:blur(20px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:5;padding-bottom:env(safe-area-inset-bottom)}
+nav button{border:0;background:none;color:var(--muted);padding:11px 4px;font-size:12px}nav button.active{color:var(--gold)}nav span{display:block;font-size:21px;margin-bottom:2px}
+input,select,textarea{width:100%;padding:13px;border-radius:13px;border:1px solid var(--line);background:#0f1219;color:white;font-size:16px;margin-top:6px}label{display:block;color:var(--muted);font-size:13px;margin-top:12px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:10;display:none;align-items:flex-end}.modal.open{display:flex}.sheet{background:#151923;width:100%;max-height:90vh;overflow:auto;border-radius:25px 25px 0 0;padding:20px 18px 35px}.sheet h2{margin-top:0}.close{float:right;background:none;border:0;color:white;font-size:26px}
+.small{font-size:12px;color:var(--muted)}.empty{text-align:center;color:var(--muted);padding:30px 5px}.event{border:1px solid var(--line);border-radius:18px;padding:15px;margin:10px 0;background:var(--card)}.eventtop{display:flex;justify-content:space-between}.pill{display:inline-block;padding:4px 8px;border-radius:10px;background:#252b38;font-size:11px;margin-top:8px;margin-right:5px}
+</style>
+</head>
+<body>
+<header><h1>DJ Finanzas</h1><div class="sub">Tu dinero y tus eventos, en un solo lugar.</div></header>
+<main id="app"></main>
+<nav>
+<button data-tab="home" class="active"><span>⌂</span>Inicio</button>
+<button data-tab="money"><span>€</span>Dinero</button>
+<button data-tab="calendar"><span>▣</span>Agenda</button>
+<button data-tab="settings"><span>⚙</span>Ajustes</button>
+</nav>
+<div id="modal" class="modal"><div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div>
+<script>
+const KEY="djfinanzas_v2";
+let data=JSON.parse(localStorage.getItem(KEY)||'{"settings":{"saturdayRate":0,"monthlyJob":0,"extraSalary":0},"movements":[],"events":[]}');
+let tab="home", month=new Date(); month.setDate(1);
+const money=n=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR"}).format(n||0);
+const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
+const monthKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`;
+const inMonth=(d,m)=>monthKey(new Date(d))===monthKey(m);
+function saturdays(m){let d=new Date(m),c=0;while(d.getMonth()===m.getMonth()){if(d.getDay()===6)c++;d.setDate(d.getDate()+1)}return c}
+function totals(){let inc=data.movements.filter(x=>x.type==="income"&&inMonth(x.date,month)).reduce((a,x)=>a+x.amount,0)+data.settings.saturdayRate*saturdays(month)+data.settings.monthlyJob+data.settings.extraSalary;let exp=data.movements.filter(x=>x.type==="expense"&&inMonth(x.date,month)).reduce((a,x)=>a+x.amount,0);return {inc,exp,bal:inc-exp}}
+function monthBar(){return `<div class="month"><button onclick="shiftMonth(-1)">‹</button><strong>${month.toLocaleDateString("es-ES",{month:"long",year:"numeric"})}</strong><button onclick="shiftMonth(1)">›</button></div>`}
+function render(){document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));document.getElementById("app").innerHTML=tab==="home"?home():tab==="money"?moneyView():tab==="calendar"?calendarView():settingsView()}
+function home(){let t=totals(), upcoming=data.events.filter(e=>new Date(e.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,3);return `${monthBar()}<div class="balance"><div class="label">BALANCE DEL MES</div><div class="value">${money(t.bal)}</div></div><div class="grid"><div class="card"><div class="label">ENTRADAS</div><div class="value green">${money(t.inc)}</div></div><div class="card"><div class="label">SALIDAS</div><div class="value red">${money(t.exp)}</div></div><div class="card wide"><div class="label">DJ RESIDENTE</div><div class="value">${money(data.settings.saturdayRate*saturdays(month))}</div><div class="small">${saturdays(month)} sábados × ${money(data.settings.saturdayRate)}</div></div></div><div class="section">Próximos eventos</div>${upcoming.length?upcoming.map(eventHTML).join(""):'<div class="empty">No tienes eventos próximos.</div>'}`}
+function moneyView(){let t=totals(), rows=data.movements.filter(x=>inMonth(x.date,month));return `${monthBar()}<div class="section">Ingresos fijos</div><div class="card"><div class="row"><span>DJ residente (${saturdays(month)} sábados)</span><b class="green">${money(data.settings.saturdayRate*saturdays(month))}</b></div><div class="row"><span>Trabajo mensual</span><b class="green">${money(data.settings.monthlyJob)}</b></div><div class="row"><span>Sueldo extra</span><b class="green">${money(data.settings.extraSalary)}</b></div></div><button class="primary" onclick="movementForm('income')">+ Añadir entrada</button><button class="primary" style="background:#252b38;color:white" onclick="movementForm('expense')">+ Añadir salida / deducción</button><div class="section">Movimientos del mes</div>${rows.length?rows.slice().reverse().map(x=>`<div class="event"><div class="eventtop"><b>${esc(x.title)}</b><b class="${x.type==="income"?"green":"red"}">${x.type==="income"?"+":"−"}${money(x.amount)}</b></div><div class="small">${esc(x.category)} · ${new Date(x.date).toLocaleDateString("es-ES")}</div><button class="primary" style="background:#252b38;color:white" onclick="removeMovement('${x.id}')">Eliminar</button></div>`).join(""):'<div class="empty">Todavía no hay movimientos.</div>'}<div class="card wide"><div class="row"><b>TOTAL ENTRADAS</b><b class="green">${money(t.inc)}</b></div><div class="row"><b>TOTAL SALIDAS</b><b class="red">${money(t.exp)}</b></div><div class="row"><b>GRAN TOTAL</b><b>${money(t.bal)}</b></div></div>`}
+function calendarView(){let ev=data.events.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));return `<button class="primary" onclick="eventForm()">+ Agendar evento</button><div class="section">Mis eventos</div>${ev.length?ev.map(eventHTML).join(""):'<div class="empty">No tienes eventos agendados.</div>'}`}
+function eventHTML(e){return `<div class="event"><div class="eventtop"><b>${esc(e.name)}</b><b class="${e.movement==="income"?"green":"red"}">${e.movement==="income"?"+":"−"}${money(e.amount)}</b></div><div class="small">${new Date(e.date).toLocaleString("es-ES")} · ${esc(e.place)}</div><span class="pill">${esc(e.type)}</span>${e.reminder?'<span class="pill">🔔 Recordatorio</span>':''}<button class="primary" style="background:#252b38;color:white" onclick="removeEvent('${e.id}')">Eliminar</button></div>`}
+function settingsView(){return `<div class="section">Ingresos fijos</div><div class="card"><label>Pago por cada sábado de DJ residente<input id="sr" type="number" step="0.01" value="${data.settings.saturdayRate}"></label><label>Trabajo mensual<input id="mj" type="number" step="0.01" value="${data.settings.monthlyJob}"></label><label>Sueldo extra<input id="ex" type="number" step="0.01" value="${data.settings.extraSalary}"></label><button class="primary" onclick="saveSettings()">Guardar ajustes</button></div><div class="section">Copia de seguridad</div><div class="card"><div class="small">Los datos se guardan en este iPhone. Puedes exportar una copia y volver a importarla cuando quieras.</div><button class="primary" style="background:#252b38;color:white" onclick="exportData()">Exportar copia</button><button class="primary" style="background:#252b38;color:white" onclick="importData()">Importar copia</button></div>`}
+function movementForm(type){openModal(`<h2>${type==="income"?"Nueva entrada":"Nueva salida / deducción"}</h2><label>Nombre<input id="mt"></label><label>Categoría<input id="mc" placeholder="Comida, transporte, alquiler..."></label><label>Valor (€)<input id="ma" type="number" step="0.01"></label><label>Fecha<input id="md" type="date" value="${new Date().toISOString().slice(0,10)}"></label><button class="primary" onclick="addMovement('${type}')">Guardar</button>`)}
+function addMovement(type){let amount=+document.getElementById("ma").value;if(!amount)return;data.movements.push({id:crypto.randomUUID(),title:document.getElementById("mt").value||"Movimiento",category:document.getElementById("mc").value||"General",amount,type,date:document.getElementById("md").value});save();closeModal();render()}
+function eventForm(){openModal(`<h2>Agendar evento</h2><label>Nombre del evento<input id="en"></label><label>Fecha y hora<input id="ed" type="datetime-local"></label><label>Lugar<input id="ep"></label><label>Tipo de evento<input id="et" placeholder="DJ, fiesta, cumpleaños..."></label><label>Entrada o salida<select id="em"><option value="income">Entrada</option><option value="expense">Salida</option></select></label><label>Valor (€)<input id="ea" type="number" step="0.01"></label><label><input id="er" type="checkbox" checked> Recordatorios</label><label>Notas<textarea id="enotes"></textarea></label><button class="primary" onclick="addEvent()">Guardar evento</button>`)}
+function addEvent(){let d=document.getElementById("ed").value;if(!d)return;let e={id:crypto.randomUUID(),name:document.getElementById("en").value||"Evento",date:new Date(d).toISOString(),place:document.getElementById("ep").value||"",type:document.getElementById("et").value||"Evento",movement:document.getElementById("em").value,amount:+document.getElementById("ea").value||0,reminder:document.getElementById("er").checked,notes:document.getElementById("enotes").value};data.events.push(e);save();closeModal();render();if(e.reminder)alert("Evento guardado. En esta versión web, iPhone no garantiza recordatorios automáticos si la app está cerrada.")}
+function saveSettings(){data.settings.saturdayRate=+document.getElementById("sr").value||0;data.settings.monthlyJob=+document.getElementById("mj").value||0;data.settings.extraSalary=+document.getElementById("ex").value||0;save();render()}
+function removeMovement(id){data.movements=data.movements.filter(x=>x.id!==id);save();render()}
+function removeEvent(id){data.events=data.events.filter(x=>x.id!==id);save();render()}
+function shiftMonth(n){month.setMonth(month.getMonth()+n);render()}
+function openModal(x){document.getElementById("modalBody").innerHTML=x;document.getElementById("modal").classList.add("open")}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function exportData(){let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download="DJ-Finanzas-copia.json";a.click()}
+function importData(){let i=document.createElement("input");i.type="file";i.accept=".json";i.onchange=()=>{let r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);save();render();alert("Copia importada correctamente")}catch{alert("Archivo no válido")}};r.readAsText(i.files[0])};i.click()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render()});
+if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{})}
+render();
+</script>
+</body></html>
