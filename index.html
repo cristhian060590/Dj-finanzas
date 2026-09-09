@@ -101,6 +101,7 @@ textarea{min-height:78px}
 
 <script>
 const KEY="djfinanzas_v5", PREV=["djfinanzas_v4","djfinanzas_v3","djfinanzas_v2"];
+const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
 let data=null;
 for(const k of [KEY,...PREV]){const r=localStorage.getItem(k);if(r){try{data=JSON.parse(r);break}catch(e){}}}
 if(!data) data={};
