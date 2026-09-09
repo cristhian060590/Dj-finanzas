@@ -1,23 +1,356 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#07090f"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="DJ Finanzas"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><title>DJ Finanzas</title><style>
-:root{--bg:#07090f;--bg2:#101520;--card:rgba(20,25,37,.86);--text:#f8fafc;--muted:#9ca6b7;--gold:#f1c75b;--gold2:#d89b2b;--green:#44d58a;--red:#ff6877;--blue:#6fa8ff;--line:rgba(255,255,255,.09);--shadow:0 18px 50px rgba(0,0,0,.28)}*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;min-height:100vh;background:radial-gradient(circle at 12% 0%,rgba(69,107,180,.22),transparent 30%),radial-gradient(circle at 92% 18%,rgba(210,155,43,.12),transparent 26%),linear-gradient(180deg,var(--bg),var(--bg2));padding-bottom:calc(92px + env(safe-area-inset-bottom))}button,input,select,textarea{font:inherit}header{padding:calc(18px + env(safe-area-inset-top)) 18px 16px;position:sticky;top:0;z-index:7;background:linear-gradient(180deg,rgba(7,9,15,.96),rgba(7,9,15,.78));backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.04)}.brand{display:flex;align-items:center;gap:12px;max-width:780px;margin:auto}.brand img{width:44px;height:44px;border-radius:14px;object-fit:cover;box-shadow:0 8px 25px rgba(0,0,0,.35)}.brand h1{font-size:25px;margin:0}.brand .sub{color:var(--muted);font-size:12px;margin-top:2px}main{max-width:780px;margin:auto;padding:10px 15px 30px}.monthbar{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}.monthbar button,.iconbtn{border:1px solid var(--line);background:var(--card);color:white;width:42px;height:42px;border-radius:14px}.hero{background:linear-gradient(135deg,rgba(40,48,68,.96),rgba(16,20,30,.95));border:1px solid rgba(255,255,255,.11);border-radius:28px;padding:22px;box-shadow:var(--shadow);overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:170px;height:170px;border-radius:50%;background:rgba(241,199,91,.12);right:-60px;top:-70px}.eyebrow{font-size:12px;color:var(--muted);font-weight:700;letter-spacing:.6px}.big{font-size:39px;font-weight:850;margin:6px 0}.herofoot{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:11px}.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:16px}.wide{grid-column:1/-1}.label{font-size:12px;color:var(--muted);font-weight:700}.value{font-size:23px;font-weight:820;margin-top:6px}.green{color:var(--green)}.red{color:var(--red)}.gold{color:var(--gold)}.blue{color:var(--blue)}.sectionTitle{display:flex;align-items:center;justify-content:space-between;margin:23px 2px 10px;font-size:17px;font-weight:820}.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.small{font-size:12px;color:var(--muted);line-height:1.4}.primary,.secondary,.danger{width:100%;border:0;border-radius:16px;padding:14px;font-weight:800;font-size:15px;margin-top:10px}.primary{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#19130a}.secondary{background:#232a38;color:white;border:1px solid var(--line)}.danger{background:rgba(255,104,119,.13);color:#ff8995;border:1px solid rgba(255,104,119,.22)}nav{position:fixed;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom));z-index:9;display:grid;grid-template-columns:repeat(5,1fr);background:rgba(14,18,27,.93);backdrop-filter:blur(22px);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}nav button{border:0;background:none;color:var(--muted);padding:9px 1px 8px;font-size:10px}nav button.active{color:var(--gold)}nav span{display:block;font-size:20px;margin-bottom:2px}.event{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:15px;margin:10px 0}.eventtop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.pills{margin-top:8px}.pill{display:inline-block;padding:5px 8px;border-radius:10px;background:#252c3a;color:#cbd2de;font-size:10px;margin:0 5px 5px 0}.pill.pending{background:rgba(241,199,91,.12);color:var(--gold)}.pill.settled{background:rgba(68,213,138,.12);color:var(--green)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:20;display:none;align-items:flex-end}.modal.open{display:flex}.sheet{width:100%;max-height:92vh;overflow:auto;background:#141925;border-radius:28px 28px 0 0;padding:18px 18px calc(30px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}.sheet h2{margin:3px 0 8px}.close{float:right;border:0;background:#252c38;color:white;width:38px;height:38px;border-radius:12px;font-size:22px}label{display:block;color:var(--muted);font-size:12px;margin-top:12px}input,select,textarea{width:100%;margin-top:6px;padding:13px 12px;border-radius:13px;border:1px solid var(--line);background:#0e121a;color:white;font-size:16px}textarea{min-height:80px}.chartbox{height:220px;position:relative}.chartbox canvas{width:100%;height:100%}.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:11px;color:var(--muted)}.dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:4px;background:currentColor}.empty{text-align:center;padding:28px 8px;color:var(--muted)}.twoButtons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.badge{padding:4px 8px;border-radius:999px;font-size:10px;background:#232a38;color:var(--muted)}.notice{padding:12px;border-radius:14px;background:rgba(111,168,255,.08);border:1px solid rgba(111,168,255,.16);color:#c7dbff;font-size:12px;line-height:1.45;margin-top:10px}
-</style></head><body><header><div class="brand"><img src="icon-192.png" alt="Logo"><div><h1>DJ Finanzas</h1><div class="sub">Control financiero & agenda</div></div></div></header><main id="app"></main><nav><button data-tab="home" class="active"><span>⌂</span>Inicio</button><button data-tab="money"><span>€</span>Dinero</button><button data-tab="agenda"><span>▣</span>Agenda</button><button data-tab="stats"><span>⌁</span>Estadísticas</button><button data-tab="settings"><span>⚙</span>Ajustes</button></nav><div id="modal" class="modal"><div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div><script>
-const KEY='djfinanzas_v3',OLD='djfinanzas_v2';let raw=localStorage.getItem(KEY);if(!raw){let old=localStorage.getItem(OLD);if(old){try{let o=JSON.parse(old);raw=JSON.stringify({settings:o.settings||{saturdayRate:0,monthlyJob:0,extraSalary:0},movements:(o.movements||[]).map(x=>({...x,kind:x.type==='income'?'income':'expense',status:'settled',recurring:false})),events:(o.events||[]).map(x=>({...x,kind:x.movement==='income'?'income':'expense',status:'pending'})),saturdayOverrides:{}});localStorage.setItem(KEY,raw)}catch(e){}}}let data=raw?JSON.parse(raw):{settings:{saturdayRate:0,monthlyJob:0,extraSalary:0},movements:[],events:[],saturdayOverrides:{}};data.saturdayOverrides=data.saturdayOverrides||{};let tab='home',month=new Date();month.setDate(1);month.setHours(12,0,0,0);const EUR=n=>new Intl.NumberFormat('es-ES',{style:'currency',currency:'EUR'}).format(Number(n||0)),save=()=>localStorage.setItem(KEY,JSON.stringify(data)),uid=()=>crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2),mkey=d=>{d=new Date(d);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`},sameMonth=(d,m)=>mkey(d)===mkey(m),safe=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function saturdays(m){let d=new Date(m.getFullYear(),m.getMonth(),1,12),a=[];while(d.getMonth()===m.getMonth()){if(d.getDay()===6)a.push(new Date(d));d.setDate(d.getDate()+1)}return a}function skey(d){return new Date(d).toISOString().slice(0,10)}function satInfo(m){return saturdays(m).map(d=>{let k=skey(d),o=data.saturdayOverrides[k]||{};return{date:d,key:k,status:o.status||'pending',amount:o.amount??data.settings.saturdayRate}})}function monthMovements(m){let manual=data.movements.filter(x=>sameMonth(x.date,m));let recur=data.movements.filter(x=>x.recurring&&new Date(x.date)<=new Date(m.getFullYear(),m.getMonth()+1,0,23,59,59)&&!sameMonth(x.date,m)).map(x=>({...x,id:x.id+'_'+mkey(m),date:new Date(m.getFullYear(),m.getMonth(),Math.min(new Date(x.date).getDate(),28),12).toISOString()}));return manual.concat(recur)}function monthEvents(m){return data.events.filter(x=>sameMonth(x.date,m))}
-function totals(m=month){let ms=monthMovements(m),es=monthEvents(m),sats=satInfo(m),fixed=(data.settings.monthlyJob||0)+(data.settings.extraSalary||0),residentP=sats.filter(x=>x.status!=='skipped').reduce((a,x)=>a+Number(x.amount||0),0),residentA=sats.filter(x=>x.status==='settled').reduce((a,x)=>a+Number(x.amount||0),0),miP=ms.filter(x=>x.kind==='income').reduce((a,x)=>a+Number(x.amount||0),0),miA=ms.filter(x=>x.kind==='income'&&x.status==='settled').reduce((a,x)=>a+Number(x.amount||0),0),ep=es.filter(x=>x.kind==='income').reduce((a,x)=>a+Number(x.amount||0),0),ea=es.filter(x=>x.kind==='income'&&x.status==='settled').reduce((a,x)=>a+Number(x.amount||0),0),xp=ms.filter(x=>x.kind==='expense').reduce((a,x)=>a+Number(x.amount||0),0),xa=ms.filter(x=>x.kind==='expense'&&x.status==='settled').reduce((a,x)=>a+Number(x.amount||0),0),dp=ms.filter(x=>x.kind==='deduction').reduce((a,x)=>a+Number(x.amount||0),0),da=ms.filter(x=>x.kind==='deduction'&&x.status==='settled').reduce((a,x)=>a+Number(x.amount||0),0),eop=es.filter(x=>x.kind!=='income').reduce((a,x)=>a+Number(x.amount||0),0),eoa=es.filter(x=>x.kind!=='income'&&x.status==='settled').reduce((a,x)=>a+Number(x.amount||0),0);let incomeP=fixed+residentP+miP+ep,incomeA=fixed+residentA+miA+ea,outP=xp+dp+eop,outA=xa+da+eoa;return{incomeP,incomeA,outP,outA,balanceP:incomeP-outP,balanceA:incomeA-outA,expensesA:xa,deductionsA:da,residentP,residentA}}
-function monthBar(){return `<div class="monthbar"><button onclick="shiftMonth(-1)">‹</button><strong>${month.toLocaleDateString('es-ES',{month:'long',year:'numeric'})}</strong><button onclick="shiftMonth(1)">›</button></div>`}function st(x){return x==='settled'?'Cobrado / pagado':x==='skipped'?'No trabajado':'Pendiente'}function sc(x){return x==='settled'?'settled':'pending'}
-function render(){document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));app.innerHTML=tab==='home'?home():tab==='money'?moneyView():tab==='agenda'?agendaView():tab==='stats'?statsView():settingsView();if(tab==='stats')setTimeout(drawCharts,20)}
-function home(){let t=totals(),up=data.events.filter(e=>new Date(e.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,3);return `${monthBar()}<div class="hero"><div class="eyebrow">DISPONIBLE REAL</div><div class="big">${EUR(t.balanceA)}</div><div class="herofoot"><span>Proyectado: ${EUR(t.balanceP)}</span><span>${mkey(month)}</span></div></div><div class="grid"><div class="card"><div class="label">COBRADO</div><div class="value green">${EUR(t.incomeA)}</div><div class="small">Proyectado ${EUR(t.incomeP)}</div></div><div class="card"><div class="label">PAGADO</div><div class="value red">${EUR(t.outA)}</div><div class="small">Proyectado ${EUR(t.outP)}</div></div><div class="card wide"><div class="label">DJ RESIDENTE</div><div class="value gold">${EUR(t.residentA)}</div><div class="small">Cobrado de ${EUR(t.residentP)} · ${satInfo(month).filter(x=>x.status!=='skipped').length} sábados previstos</div></div></div><div class="sectionTitle"><span>Próximos eventos</span><span class="badge">${up.length}</span></div>${up.length?up.map(eventCard).join(''):'<div class="empty">No tienes eventos próximos.</div>'}`}
-function moneyView(){let t=totals(),ms=monthMovements(month).slice().sort((a,b)=>new Date(b.date)-new Date(a.date));return `${monthBar()}<div class="card"><div class="row"><span>Entradas cobradas</span><b class="green">${EUR(t.incomeA)}</b></div><div class="row"><span>Gastos pagados</span><b class="red">${EUR(t.expensesA)}</b></div><div class="row"><span>Deducciones pagadas</span><b class="red">${EUR(t.deductionsA)}</b></div><div class="row"><b>Disponible real</b><b class="gold">${EUR(t.balanceA)}</b></div></div><div class="twoButtons"><button class="primary" onclick="movementForm('income')">+ Entrada</button><button class="secondary" onclick="movementForm('expense')">+ Gasto</button></div><button class="secondary" onclick="movementForm('deduction')">+ Deducción</button><div class="sectionTitle"><span>DJ residente · sábados</span></div><div class="card">${satInfo(month).map(s=>`<div class="row"><div><b>${s.date.toLocaleDateString('es-ES',{weekday:'short',day:'numeric'})}</b><div class="small">${st(s.status)} · ${EUR(s.amount)}</div></div><button class="iconbtn" onclick="saturdayForm('${s.key}')">✎</button></div>`).join('')}</div><div class="sectionTitle"><span>Movimientos</span><span class="badge">${ms.length}</span></div>${ms.length?ms.map(movementCard).join(''):'<div class="empty">No hay movimientos este mes.</div>'}`}
-function movementCard(x){let realid=x.id.split('_')[0];return `<div class="event"><div class="eventtop"><div><b>${safe(x.title)}</b><div class="small">${safe(x.category||'General')} · ${new Date(x.date).toLocaleDateString('es-ES')}</div></div><b class="${x.kind==='income'?'green':'red'}">${x.kind==='income'?'+':'−'}${EUR(x.amount)}</b></div><div class="pills"><span class="pill ${sc(x.status)}">${st(x.status)}</span>${x.kind==='deduction'?'<span class="pill">Deducción</span>':''}${x.recurring?'<span class="pill">Mensual</span>':''}</div><div class="twoButtons"><button class="secondary" onclick="toggleMovement('${realid}')">${x.status==='settled'?'Marcar pendiente':'Marcar '+(x.kind==='income'?'cobrado':'pagado')}</button><button class="danger" onclick="removeMovement('${realid}')">Eliminar</button></div></div>`}
-function agendaView(){let ev=data.events.slice().sort((a,b)=>new Date(a.date)-new Date(b.date));return `<button class="primary" onclick="eventForm()">+ Agendar evento</button><div class="notice">Los eventos pendientes cuentan como dinero proyectado. Solo pasan al dinero real cuando los marcas como cobrado o pagado.</div><div class="sectionTitle"><span>Mis eventos</span><span class="badge">${ev.length}</span></div>${ev.length?ev.map(eventCard).join(''):'<div class="empty">No tienes eventos agendados.</div>'}`}
-function eventCard(e){return `<div class="event"><div class="eventtop"><div><b>${safe(e.name)}</b><div class="small">${new Date(e.date).toLocaleString('es-ES')} · ${safe(e.place||'Sin lugar')}</div></div><b class="${e.kind==='income'?'green':'red'}">${e.kind==='income'?'+':'−'}${EUR(e.amount)}</b></div><div class="pills"><span class="pill">${safe(e.type||'Evento')}</span><span class="pill ${sc(e.status)}">${st(e.status)}</span>${e.reminder?'<span class="pill">🔔</span>':''}</div><div class="twoButtons"><button class="secondary" onclick="toggleEvent('${e.id}')">${e.status==='settled'?'Marcar pendiente':'Marcar '+(e.kind==='income'?'cobrado':'pagado')}</button><button class="danger" onclick="removeEvent('${e.id}')">Eliminar</button></div></div>`}
-function statsView(){let t=totals();return `${monthBar()}<div class="grid"><div class="card"><div class="label">REAL</div><div class="value gold">${EUR(t.balanceA)}</div></div><div class="card"><div class="label">PROYECTADO</div><div class="value blue">${EUR(t.balanceP)}</div></div></div><div class="sectionTitle"><span>Últimos 6 meses</span></div><div class="card"><div class="chartbox"><canvas id="trend"></canvas></div><div class="legend"><span class="green"><i class="dot"></i>Entradas reales</span><span class="red"><i class="dot"></i>Salidas reales</span></div></div><div class="sectionTitle"><span>Salidas por categoría</span></div><div class="card"><div class="chartbox"><canvas id="cats"></canvas></div></div>`}
-function settingsView(){return `<div class="sectionTitle"><span>Ingresos fijos</span></div><div class="card"><label>Pago base por sábado<input id="sr" type="number" step="0.01" value="${data.settings.saturdayRate||0}"></label><label>Trabajo mensual<input id="mj" type="number" step="0.01" value="${data.settings.monthlyJob||0}"></label><label>Sueldo extra mensual<input id="ex" type="number" step="0.01" value="${data.settings.extraSalary||0}"></label><button class="primary" onclick="saveSettings()">Guardar</button></div><div class="sectionTitle"><span>Copia de seguridad</span></div><div class="card"><div class="small">Tus datos se guardan en este iPhone. Exporta una copia de vez en cuando.</div><button class="secondary" onclick="exportData()">Exportar copia</button><button class="secondary" onclick="importData()">Importar copia</button></div><div class="notice">Importante: no borres los datos de Safari ni los datos del sitio sin haber exportado una copia.</div>`}
-function movementForm(kind){let title=kind==='income'?'Nueva entrada':kind==='expense'?'Nuevo gasto':'Nueva deducción';openModal(`<h2>${title}</h2><label>Nombre<input id="mt"></label><label>Categoría<input id="mc" placeholder="General"></label><label>Valor (€)<input id="ma" type="number" step="0.01"></label><label>Fecha<input id="md" type="date" value="${new Date().toISOString().slice(0,10)}"></label><label>Estado<select id="ms"><option value="pending">Pendiente</option><option value="settled">${kind==='income'?'Cobrado':'Pagado'}</option></select></label><label><input id="mr" type="checkbox"> Repetir cada mes</label><button class="primary" onclick="addMovement('${kind}')">Guardar</button>`)}
-function addMovement(kind){let amount=+ma.value;if(amount<=0)return alert('Escribe un valor mayor que 0.');data.movements.push({id:uid(),title:mt.value||'Movimiento',category:mc.value||'General',amount,kind,date:new Date(md.value+'T12:00:00').toISOString(),status:ms.value,recurring:mr.checked});save();closeModal();render()}
-function saturdayForm(k){let d=satInfo(month).find(x=>x.key===k);openModal(`<h2>Sábado ${new Date(k+'T12:00:00').toLocaleDateString('es-ES',{day:'numeric',month:'long'})}</h2><label>Valor de ese sábado<input id="sa" type="number" step="0.01" value="${d.amount}"></label><label>Estado<select id="ss"><option value="pending" ${d.status==='pending'?'selected':''}>Pendiente</option><option value="settled" ${d.status==='settled'?'selected':''}>Cobrado</option><option value="skipped" ${d.status==='skipped'?'selected':''}>No trabajado</option></select></label><button class="primary" onclick="saveSaturday('${k}')">Guardar</button>`)}function saveSaturday(k){data.saturdayOverrides[k]={amount:+sa.value||0,status:ss.value};save();closeModal();render()}
-function eventForm(){openModal(`<h2>Nuevo evento</h2><label>Nombre del evento<input id="en"></label><label>Fecha y hora<input id="ed" type="datetime-local"></label><label>Lugar<input id="ep"></label><label>Tipo de evento<input id="et" placeholder="DJ, fiesta, cumpleaños..."></label><label>Movimiento<select id="ek"><option value="income">Entrada</option><option value="expense">Salida</option><option value="deduction">Deducción</option></select></label><label>Valor (€)<input id="ea" type="number" step="0.01"></label><label>Estado<select id="es"><option value="pending">Pendiente</option><option value="settled">Cobrado / pagado</option></select></label><label><input id="er" type="checkbox" checked> Guardar como recordatorio</label><label>Notas<textarea id="enotes"></textarea></label><button class="primary" onclick="addEvent()">Guardar evento</button>`)}function addEvent(){if(!ed.value)return alert('Selecciona fecha y hora.');data.events.push({id:uid(),name:en.value||'Evento',date:new Date(ed.value).toISOString(),place:ep.value||'',type:et.value||'Evento',kind:ek.value,amount:+ea.value||0,status:es.value,reminder:er.checked,notes:enotes.value||''});save();closeModal();render()}
-function toggleMovement(i){let x=data.movements.find(x=>x.id===i);if(x){x.status=x.status==='settled'?'pending':'settled';save();render()}}function toggleEvent(i){let x=data.events.find(x=>x.id===i);if(x){x.status=x.status==='settled'?'pending':'settled';save();render()}}function removeMovement(i){if(confirm('¿Eliminar este movimiento?')){data.movements=data.movements.filter(x=>x.id!==i);save();render()}}function removeEvent(i){if(confirm('¿Eliminar este evento?')){data.events=data.events.filter(x=>x.id!==i);save();render()}}function saveSettings(){data.settings.saturdayRate=+sr.value||0;data.settings.monthlyJob=+mj.value||0;data.settings.extraSalary=+ex.value||0;save();render()}function shiftMonth(n){month=new Date(month.getFullYear(),month.getMonth()+n,1,12);render()}function openModal(x){modalBody.innerHTML=x;modal.classList.add('open')}function closeModal(){modal.classList.remove('open')}function exportData(){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.download='DJ-Finanzas-copia-'+new Date().toISOString().slice(0,10)+'.json';a.click()}function importData(){let i=document.createElement('input');i.type='file';i.accept='.json';i.onchange=()=>{let r=new FileReader();r.onload=()=>{try{let n=JSON.parse(r.result);if(!n.settings||!n.movements||!n.events)throw 0;data=n;data.saturdayOverrides=data.saturdayOverrides||{};save();render();alert('Copia importada.')}catch(e){alert('Archivo no válido.')}};r.readAsText(i.files[0])};i.click()}
-function setupCanvas(id){let c=document.getElementById(id);if(!c)return null;let dpr=window.devicePixelRatio||1,r=c.getBoundingClientRect();c.width=r.width*dpr;c.height=r.height*dpr;let ctx=c.getContext('2d');ctx.scale(dpr,dpr);return{ctx,w:r.width,h:r.height}}function drawCharts(){drawTrend();drawCats()}function drawTrend(){let o=setupCanvas('trend');if(!o)return;let{ctx,w,h}=o,p={l:10,r:8,t:18,b:28},arr=[];for(let i=5;i>=0;i--){let m=new Date(month.getFullYear(),month.getMonth()-i,1,12),t=totals(m);arr.push({m:m.toLocaleDateString('es-ES',{month:'short'}),a:t.incomeA,b:t.outA})}let max=Math.max(1,...arr.flatMap(x=>[x.a,x.b]));ctx.strokeStyle='rgba(255,255,255,.08)';for(let i=0;i<4;i++){let y=p.t+(h-p.t-p.b)*i/3;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke()}function line(k,col){ctx.strokeStyle=col;ctx.lineWidth=3;ctx.beginPath();arr.forEach((x,i)=>{let xx=p.l+(w-p.l-p.r)*i/(arr.length-1),yy=h-p.b-(h-p.t-p.b)*x[k]/max;i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)});ctx.stroke()}line('a','#44d58a');line('b','#ff6877');ctx.fillStyle='#9ca6b7';ctx.font='11px -apple-system';ctx.textAlign='center';arr.forEach((x,i)=>ctx.fillText(x.m,p.l+(w-p.l-p.r)*i/(arr.length-1),h-8))}function drawCats(){let o=setupCanvas('cats');if(!o)return;let{ctx,w,h}=o,items={};monthMovements(month).filter(x=>x.kind!=='income'&&x.status==='settled').forEach(x=>items[x.category||'General']=(items[x.category||'General']||0)+Number(x.amount||0));monthEvents(month).filter(x=>x.kind!=='income'&&x.status==='settled').forEach(x=>items['Eventos']=(items['Eventos']||0)+Number(x.amount||0));let arr=Object.entries(items).sort((a,b)=>b[1]-a[1]).slice(0,5);if(!arr.length){ctx.fillStyle='#9ca6b7';ctx.font='13px -apple-system';ctx.textAlign='center';ctx.fillText('Sin salidas pagadas este mes.',w/2,h/2);return}let max=Math.max(...arr.map(x=>x[1])),left=92,right=10,top=10,row=(h-20)/arr.length;ctx.font='11px -apple-system';arr.forEach((x,i)=>{let y=top+i*row+row*.22,bh=row*.42;ctx.fillStyle='#9ca6b7';ctx.textAlign='right';ctx.fillText(x[0].slice(0,13),left-8,y+bh*.8);ctx.fillStyle='rgba(241,199,91,.86)';ctx.fillRect(left,y,(w-left-right)*x[1]/max,bh);ctx.fillStyle='#f8fafc';ctx.textAlign='left';ctx.fillText(EUR(x[1]),left+5,y+bh*.8)})}
-document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render()});if('serviceWorker'in navigator){navigator.serviceWorker.register('./sw.js').catch(()=>{})}render();
-</script></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080b12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="DJ Finanzas">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>DJ Finanzas</title>
+<style>
+:root{
+ --bg:#080b12;--bg2:#111725;--card:rgba(20,26,39,.90);--card2:#171e2c;
+ --text:#f8fafc;--muted:#9ba6b7;--line:rgba(255,255,255,.08);
+ --gold:#f2c75f;--gold2:#d99c2f;--green:#48d18b;--blue:#6da4ff;
+ --red:#ff7d86;--orange:#e7a65c;
+ --soft-red:rgba(191,73,82,.16);--soft-orange:rgba(207,139,61,.18);--soft-green:rgba(58,173,114,.12);
+ --shadow:0 18px 48px rgba(0,0,0,.28)
+}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;min-height:100vh;color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+ background:radial-gradient(circle at 10% 0%,rgba(70,105,170,.22),transparent 29%),
+ radial-gradient(circle at 90% 15%,rgba(220,160,58,.11),transparent 25%),
+ linear-gradient(180deg,var(--bg),var(--bg2));
+ padding-bottom:calc(98px + env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit}
+header{position:sticky;top:0;z-index:8;padding:calc(14px + env(safe-area-inset-top)) 16px 12px;background:rgba(8,11,18,.90);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.04)}
+.brand{display:flex;align-items:center;gap:11px;max-width:820px;margin:auto}
+.brand img{width:44px;height:44px;border-radius:14px;object-fit:cover;box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.brand h1{font-size:24px;margin:0;letter-spacing:-.4px}.sub{font-size:12px;color:var(--muted);margin-top:1px}
+main{max-width:820px;margin:auto;padding:10px 14px 32px}
+.monthbar{display:flex;align-items:center;justify-content:space-between;margin:4px 0 13px}
+.monthbar button,.iconbtn{width:42px;height:42px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:white}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}
+.quick button{border:1px solid var(--line);background:var(--card);color:white;border-radius:18px;padding:11px 3px;font-size:11px}
+.quick b{display:block;font-size:21px;margin-bottom:3px}
+.hero{padding:20px;border-radius:28px;background:linear-gradient(135deg,rgba(43,51,72,.96),rgba(15,19,28,.98));border:1px solid rgba(255,255,255,.11);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:190px;height:190px;right:-84px;top:-94px;border-radius:50%;background:rgba(242,199,95,.10)}
+.label{font-size:12px;color:var(--muted);font-weight:760}.big{font-size:39px;font-weight:860;letter-spacing:-1.3px;margin:6px 0}
+.small{font-size:12px;color:var(--muted);line-height:1.45}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.wide{grid-column:1/-1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:15px;box-shadow:0 10px 30px rgba(0,0,0,.10)}
+.value{font-size:23px;font-weight:840;margin-top:6px}
+.green{color:var(--green)}.red{color:var(--red)}.orange{color:var(--orange)}.gold{color:var(--gold)}.blue{color:var(--blue)}
+.section{display:flex;align-items:center;justify-content:space-between;margin:23px 2px 10px;font-size:17px;font-weight:840}
+.badge{font-size:10px;padding:4px 8px;border-radius:999px;background:#252c3a;color:var(--muted)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}
+.event,.move{border:1px solid var(--line);border-radius:19px;padding:14px;margin:9px 0;background:var(--card)}
+.eventtop{display:flex;justify-content:space-between;gap:10px}
+.expenseBox{background:linear-gradient(135deg,var(--soft-red),rgba(102,43,48,.07));border-color:rgba(255,125,134,.20)}
+.deductionBox{background:linear-gradient(135deg,var(--soft-orange),rgba(130,84,34,.08));border-color:rgba(231,166,92,.22)}
+.incomeBox{background:linear-gradient(135deg,var(--soft-green),rgba(39,91,65,.05));border-color:rgba(72,209,139,.16)}
+.pill{display:inline-block;padding:5px 8px;border-radius:10px;background:#252c39;color:#cbd3df;font-size:10px;margin:8px 5px 0 0}
+.pill.pending{color:var(--gold);background:rgba(242,199,95,.10)}.pill.settled{color:var(--green);background:rgba(72,209,139,.10)}
+.primary,.secondary,.danger{width:100%;border-radius:15px;padding:13px;font-weight:820;font-size:14px;margin-top:9px}
+.primary{border:0;background:linear-gradient(135deg,var(--gold),var(--gold2));color:#18130b}
+.secondary{border:1px solid var(--line);background:#242c3a;color:white}
+.danger{border:1px solid rgba(255,125,134,.18);background:rgba(255,125,134,.10);color:#ff9ba2}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+nav{position:fixed;z-index:10;left:9px;right:9px;bottom:calc(7px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(5,1fr);background:rgba(14,18,27,.94);backdrop-filter:blur(22px);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+nav button{border:0;background:none;color:var(--muted);padding:9px 1px 8px;font-size:10px}nav button.active{color:var(--gold)}nav span{display:block;font-size:20px;margin-bottom:1px}
+.modal{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.72);display:none;align-items:flex-end}.modal.open{display:flex}
+.sheet{width:100%;max-height:92vh;overflow:auto;background:#151b28;border-radius:28px 28px 0 0;padding:18px 17px calc(30px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.close{float:right;width:38px;height:38px;border-radius:12px;border:0;background:#252c38;color:white;font-size:21px}.sheet h2{margin:3px 0 8px}
+label{display:block;color:var(--muted);font-size:12px;margin-top:12px}
+input,select,textarea{width:100%;margin-top:6px;padding:13px;border-radius:13px;border:1px solid var(--line);background:#0f131c;color:white;font-size:16px}
+textarea{min-height:78px}
+.confirm{position:fixed;inset:0;z-index:30;background:rgba(0,0,0,.67);display:none;align-items:center;justify-content:center;padding:24px}.confirm.open{display:flex}
+.confirmBox{width:100%;max-width:330px;background:#171d2a;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:var(--shadow);text-align:center}
+.confirmBox h3{margin:3px 0 7px}.confirmBox p{color:var(--muted);font-size:13px;margin:0 0 12px}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}.dow{text-align:center;color:var(--muted);font-size:10px;padding:4px 0}
+.day{min-height:52px;border-radius:13px;background:rgba(255,255,255,.03);border:1px solid var(--line);padding:6px;font-size:11px;position:relative}
+.day.blank{opacity:.16}.day.has{background:rgba(109,164,255,.08);border-color:rgba(109,164,255,.18)}.dot{width:6px;height:6px;border-radius:50%;background:var(--blue);position:absolute;bottom:6px;right:6px}
+.chartwrap{height:230px}.chartwrap canvas{width:100%;height:100%}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:7px}
+.notice{padding:11px;border-radius:13px;background:rgba(109,164,255,.07);border:1px solid rgba(109,164,255,.15);color:#c8d9ff;font-size:12px;line-height:1.45;margin-top:10px}
+.empty{text-align:center;color:var(--muted);padding:25px 6px}
+.trophy{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(95,67,17,.58),rgba(38,31,20,.75));border:1px solid rgba(242,199,95,.28);box-shadow:0 20px 55px rgba(128,88,20,.14)}
+.trophy:before{content:"🏆";position:absolute;right:14px;top:8px;font-size:72px;opacity:.12;filter:drop-shadow(0 0 18px rgba(242,199,95,.45))}
+.trophyTitle{display:flex;align-items:center;gap:9px;font-weight:850}.trophyTitle span:first-child{font-size:25px}
+.trophyAmount{font-size:36px;font-weight:900;color:var(--gold);margin:7px 0 4px;letter-spacing:-1px}
+.progress{height:8px;background:rgba(255,255,255,.07);border-radius:999px;overflow:hidden;margin-top:9px}.progress i{display:block;height:100%;background:linear-gradient(90deg,#d99c2f,#f2c75f);border-radius:999px}
+.stat4{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.statmini{padding:13px;border:1px solid var(--line);border-radius:17px;background:rgba(255,255,255,.025)}
+</style>
+</head>
+<body>
+<header><div class="brand"><img src="icon-192.png" alt="Logo"><div><h1>DJ Finanzas</h1><div class="sub">Control financiero & agenda</div></div></div></header>
+<main id="app"></main>
+<nav>
+<button data-tab="home" class="active"><span>⌂</span>Inicio</button>
+<button data-tab="money"><span>€</span>Dinero</button>
+<button data-tab="agenda"><span>▣</span>Agenda</button>
+<button data-tab="stats"><span>⌁</span>Estadísticas</button>
+<button data-tab="settings"><span>⚙</span>Ajustes</button>
+</nav>
+<div id="modal" class="modal"><div class="sheet"><button class="close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div>
+<div id="confirm" class="confirm"><div class="confirmBox"><h3 id="confirmTitle">¿Seguro?</h3><p id="confirmText"></p><div class="two"><button class="secondary" onclick="closeConfirm()">No</button><button class="primary" id="confirmYes">Sí</button></div></div></div>
+
+<script>
+const KEY="djfinanzas_v5", PREV=["djfinanzas_v4","djfinanzas_v3","djfinanzas_v2"];
+let data=null;
+for(const k of [KEY,...PREV]){const r=localStorage.getItem(k);if(r){try{data=JSON.parse(r);break}catch(e){}}}
+if(!data) data={};
+
+function normalize(){
+ data.settings=data.settings||{};
+ data.settings.saturdayRate=Number(data.settings.saturdayRate||0);
+
+ if(!data.fixed){
+   data.fixed={
+    monthlyJob:{amount:Number(data.settings.monthlyJob||0)},
+    extraSalary:{amount:Number(data.settings.extraSalary||0)}
+   };
+ }
+ data.fixed.monthlyJob=data.fixed.monthlyJob||{amount:0};
+ data.fixed.extraSalary=data.fixed.extraSalary||{amount:0};
+ data.fixed.monthlyJob.amount=Number(data.fixed.monthlyJob.amount||0);
+ data.fixed.extraSalary.amount=Number(data.fixed.extraSalary.amount||0);
+
+ data.fixedStatus=data.fixedStatus||{};
+ data.movements=(data.movements||[]).map(x=>({
+   id:x.id||uid(),title:x.title||"Movimiento",category:x.category||"General",
+   amount:Number(x.amount||0),kind:x.kind||(x.type==="income"?"income":"expense"),
+   date:x.date||new Date().toISOString(),status:x.status||"pending",recurring:!!x.recurring
+ }));
+ data.events=(data.events||[]).map(x=>({
+   id:x.id||uid(),name:x.name||"Evento",date:x.date||new Date().toISOString(),
+   place:x.place||"",type:x.type||"Evento",kind:x.kind||(x.movement==="income"?"income":"expense"),
+   amount:Number(x.amount||0),status:x.status||"pending",notes:x.notes||""
+ }));
+ data.saturdayOverrides=data.saturdayOverrides||{};
+ data.recurringStatus=data.recurringStatus||{};
+ save();
+}
+function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2))}
+normalize();
+
+let tab="home",month=new Date();month.setDate(1);month.setHours(12,0,0,0);
+const EUR=n=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR"}).format(Number(n||0));
+const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
+const mk=d=>{d=new Date(d);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`};
+const same=(d,m)=>mk(d)===mk(m);
+const safe=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
+
+function fixedForMonth(m){
+ const k=mk(m); data.fixedStatus[k]=data.fixedStatus[k]||{};
+ return {
+  monthlyJob:{amount:Number(data.fixed.monthlyJob.amount||0),status:data.fixedStatus[k].monthlyJob||"pending"},
+  extraSalary:{amount:Number(data.fixed.extraSalary.amount||0),status:data.fixedStatus[k].extraSalary||"pending"}
+ };
+}
+function setFixedStatus(m,key,status){const k=mk(m);data.fixedStatus[k]=data.fixedStatus[k]||{};data.fixedStatus[k][key]=status;save()}
+function sats(m){let d=new Date(m.getFullYear(),m.getMonth(),1,12),a=[];while(d.getMonth()===m.getMonth()){if(d.getDay()===6)a.push(new Date(d));d.setDate(d.getDate()+1)}return a}
+function sk(d){return new Date(d).toISOString().slice(0,10)}
+function satInfo(m){return sats(m).map(d=>{const o=data.saturdayOverrides[sk(d)]||{};return{date:d,key:sk(d),status:o.status||"pending",amount:o.amount??data.settings.saturdayRate}})}
+function recurringInstances(m){
+ return data.movements.filter(x=>x.recurring&&new Date(x.date)<new Date(m.getFullYear(),m.getMonth()+1,1)&&!same(x.date,m)).map(x=>{
+   const key=x.id+"|"+mk(m),day=Math.min(new Date(x.date).getDate(),28);
+   return {...x,id:key,_base:x.id,_virtual:true,date:new Date(m.getFullYear(),m.getMonth(),day,12).toISOString(),status:data.recurringStatus[key]||"pending"};
+ });
+}
+function movements(m){return data.movements.filter(x=>same(x.date,m)).concat(recurringInstances(m))}
+function events(m){return data.events.filter(x=>same(x.date,m))}
+function totals(m=month){
+ const ms=movements(m),es=events(m),ss=satInfo(m),fx=fixedForMonth(m);
+ const fixedProj=fx.monthlyJob.amount+fx.extraSalary.amount;
+ const fixedAct=(fx.monthlyJob.status==="settled"?fx.monthlyJob.amount:0)+(fx.extraSalary.status==="settled"?fx.extraSalary.amount:0);
+ const satProj=ss.filter(x=>x.status!=="skipped").reduce((a,x)=>a+x.amount,0);
+ const satAct=ss.filter(x=>x.status==="settled").reduce((a,x)=>a+x.amount,0);
+
+ const incProj=ms.filter(x=>x.kind==="income").reduce((a,x)=>a+x.amount,0)+es.filter(x=>x.kind==="income").reduce((a,x)=>a+x.amount,0)+fixedProj+satProj;
+ const incAct=ms.filter(x=>x.kind==="income"&&x.status==="settled").reduce((a,x)=>a+x.amount,0)+es.filter(x=>x.kind==="income"&&x.status==="settled").reduce((a,x)=>a+x.amount,0)+fixedAct+satAct;
+
+ const expProj=ms.filter(x=>x.kind==="expense").reduce((a,x)=>a+x.amount,0)+es.filter(x=>x.kind==="expense").reduce((a,x)=>a+x.amount,0);
+ const expAct=ms.filter(x=>x.kind==="expense"&&x.status==="settled").reduce((a,x)=>a+x.amount,0)+es.filter(x=>x.kind==="expense"&&x.status==="settled").reduce((a,x)=>a+x.amount,0);
+ const dedProj=ms.filter(x=>x.kind==="deduction").reduce((a,x)=>a+x.amount,0)+es.filter(x=>x.kind==="deduction").reduce((a,x)=>a+x.amount,0);
+ const dedAct=ms.filter(x=>x.kind==="deduction"&&x.status==="settled").reduce((a,x)=>a+x.amount,0)+es.filter(x=>x.kind==="deduction"&&x.status==="settled").reduce((a,x)=>a+x.amount,0);
+
+ return{incProj,incAct,expProj,expAct,dedProj,dedAct,outProj:expProj+dedProj,outAct:expAct+dedAct,balProj:incProj-expProj-dedProj,balAct:incAct-expAct-dedAct,satProj,satAct};
+}
+function monthRangeBack(n,from=new Date()){const a=[];for(let i=n-1;i>=0;i--)a.push(new Date(from.getFullYear(),from.getMonth()-i,1,12));return a}
+function isClosedMonth(m){
+ const now=new Date(),end=new Date(m.getFullYear(),m.getMonth()+1,1);
+ return end<=new Date(now.getFullYear(),now.getMonth(),1);
+}
+function closedSavingsBefore(m){
+ let startYear=new Date().getFullYear()-8, sum=0, d=new Date(startYear,0,1,12), stop=new Date(m.getFullYear(),m.getMonth(),1,12);
+ while(d<stop){sum+=totals(d).balAct;d=new Date(d.getFullYear(),d.getMonth()+1,1,12)}
+ return sum;
+}
+function savingsNow(){
+ const now=new Date(),cur=new Date(now.getFullYear(),now.getMonth(),1,12);
+ const base=closedSavingsBefore(cur);
+ const currentBalance=totals(cur).balAct;
+ return {closed:base,current:base+Math.min(0,currentBalance),monthBalance:currentBalance};
+}
+function savingsAtViewedMonth(m){
+ const end=new Date(m.getFullYear(),m.getMonth()+1,1,12);
+ const nowStart=new Date(new Date().getFullYear(),new Date().getMonth(),1,12);
+ if(end<=nowStart) return closedSavingsBefore(end);
+ if(mk(m)===mk(nowStart)){const s=savingsNow();return s.current}
+ return closedSavingsBefore(nowStart);
+}
+function pendingIncomeForMonth(m){
+ const ms=movements(m),es=events(m),fx=fixedForMonth(m),ss=satInfo(m);
+ return ms.filter(x=>x.kind==="income"&&x.status!=="settled").reduce((a,x)=>a+x.amount,0)
+ +es.filter(x=>x.kind==="income"&&x.status!=="settled").reduce((a,x)=>a+x.amount,0)
+ +(fx.monthlyJob.status!=="settled"?fx.monthlyJob.amount:0)
+ +(fx.extraSalary.status!=="settled"?fx.extraSalary.amount:0)
+ +ss.filter(x=>x.status==="pending").reduce((a,x)=>a+x.amount,0);
+}
+function monthbar(){return `<div class="monthbar"><button onclick="shift(-1)">‹</button><strong>${month.toLocaleDateString("es-ES",{month:"long",year:"numeric"})}</strong><button onclick="shift(1)">›</button></div>`}
+function statusText(s,kind){if(s==="settled")return kind==="income"?"Cobrado":"Pagado";if(s==="skipped")return"No trabajado";return"Pendiente"}
+
+function render(){
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
+ document.getElementById("app").innerHTML=tab==="home"?home():tab==="money"?moneyView():tab==="agenda"?agendaView():tab==="stats"?statsView():settingsView();
+ if(tab==="stats")setTimeout(drawStats,20);
+}
+function home(){
+ const t=totals(),up=data.events.filter(e=>new Date(e.date)>=new Date()).sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,3),sav=savingsNow();
+ const trophyMsg=sav.current>=0?"Tu fondo está protegiendo tus avances.":"Este mes ha consumido parte del ahorro.";
+ return `${monthbar()}
+ <div class="quick"><button onclick="movementForm('income')"><b class="green">＋</b>Ingreso</button><button onclick="movementForm('expense')"><b class="red">−</b>Gasto</button><button onclick="movementForm('deduction')"><b class="orange">◉</b>Deducción</button><button onclick="eventForm()"><b class="blue">▣</b>Evento</button></div>
+ <div class="hero"><div class="label">DISPONIBLE REAL DEL MES</div><div class="big">${EUR(t.balAct)}</div><div class="small">Proyectado ${EUR(t.balProj)} · Pendiente por cobrar ${EUR(pendingIncomeForMonth(month))}</div></div>
+ <div class="grid"><div class="card"><div class="label">COBRADO</div><div class="value green">${EUR(t.incAct)}</div></div><div class="card"><div class="label">SALIDAS PAGADAS</div><div class="value red">${EUR(t.outAct)}</div></div>
+ <div class="card wide"><div class="label">DJ RESIDENTE</div><div class="value gold">${EUR(t.satAct)}</div><div class="small">Cobrado de ${EUR(t.satProj)} · ${satInfo(month).filter(x=>x.status!=="skipped").length} sábados previstos</div></div></div>
+ <div class="section"><span>🏆 Ahorros</span><span class="badge">Logro</span></div>
+ <div class="card trophy"><div class="trophyTitle"><span>🏆</span><span>Fondo de Ahorro</span></div><div class="trophyAmount">${EUR(sav.current)}</div><div class="small">${trophyMsg}</div><div class="small" style="margin-top:6px">Ahorro cerrado de meses anteriores: ${EUR(sav.closed)}</div></div>
+ <div class="section"><span>Próximos eventos</span><span class="badge">${up.length}</span></div>${up.length?up.map(eventCard).join(""):'<div class="empty">No tienes eventos próximos.</div>'}`;
+}
+function moneyView(){
+ const ms=movements(month),incs=ms.filter(x=>x.kind==="income"),exps=ms.filter(x=>x.kind==="expense"),deds=ms.filter(x=>x.kind==="deduction"),fx=fixedForMonth(month);
+ return `${monthbar()}
+ <div class="section"><span>Ingresos fijos</span></div><div class="card incomeBox">${fixedRow("monthlyJob","Trabajo mensual",fx.monthlyJob)}${fixedRow("extraSalary","Sueldo extra mensual",fx.extraSalary)}</div>
+ <div class="section"><span>Otros ingresos</span><span class="badge">${incs.length}</span></div>${incs.length?incs.map(movementCard).join(""):'<div class="empty">Sin otros ingresos este mes.</div>'}
+ <div class="section"><span>Gastos</span><span class="badge">${exps.length}</span></div>${exps.length?exps.map(movementCard).join(""):'<div class="empty">Sin gastos este mes.</div>'}
+ <div class="section"><span>Deducciones</span><span class="badge">${deds.length}</span></div>${deds.length?deds.map(movementCard).join(""):'<div class="empty">Sin deducciones este mes.</div>'}
+ <div class="section"><span>DJ residente · sábados</span></div><div class="card">${satInfo(month).map(s=>`<div class="row"><div><b>${s.date.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"})}</b><div class="small">${statusText(s.status,"income")} · ${EUR(s.amount)}</div></div><button class="iconbtn" onclick="saturdayForm('${s.key}')">✎</button></div>`).join("")}</div>`;
+}
+function fixedRow(key,label,x){
+ return `<div class="row"><div><b>${label}</b><div class="small">${statusText(x.status,"income")}</div></div><div style="text-align:right"><b class="green">${EUR(x.amount)}</b><br><button class="secondary" style="width:auto;padding:8px 10px" onclick="toggleFixed('${key}')">${x.status==="settled"?"Pendiente":"Cobrado"}</button></div></div>`;
+}
+function movementCard(x){
+ const cls=x.kind==="expense"?"expenseBox":x.kind==="deduction"?"deductionBox":"incomeBox",col=x.kind==="income"?"green":x.kind==="expense"?"red":"orange";
+ const id=x._virtual?x._base:x.id,monthKey=mk(month);
+ return `<div class="move ${cls}"><div class="eventtop"><div><b>${safe(x.title)}</b><div class="small">${safe(x.category)} · ${new Date(x.date).toLocaleDateString("es-ES")}</div></div><b class="${col}">${x.kind==="income"?"+":"−"}${EUR(x.amount)}</b></div>
+ <span class="pill ${x.status==="settled"?"settled":"pending"}">${statusText(x.status,x.kind)}</span>${x.recurring?'<span class="pill">Mensual</span>':''}
+ <div class="two"><button class="secondary" onclick="toggleMove('${id}','${x.kind}','${x._virtual?monthKey:""}')">${x.status==="settled"?"Marcar pendiente":"Marcar "+(x.kind==="income"?"cobrado":"pagado")}</button><button class="danger" onclick="removeMove('${id}')">Eliminar</button></div></div>`;
+}
+function agendaView(){
+ const ev=events(month).sort((a,b)=>new Date(a.date)-new Date(b.date));
+ return `${monthbar()}<div class="card"><div class="calendar">${calendarHTML()}</div></div><button class="primary" onclick="eventForm()">+ Agendar evento</button>
+ <div class="notice">Los eventos pendientes cuentan como dinero proyectado. Solo pasan a dinero real cuando los marcas como cobrado o pagado.</div>
+ <div class="section"><span>Eventos del mes</span><span class="badge">${ev.length}</span></div>${ev.length?ev.map(eventCard).join(""):'<div class="empty">No tienes eventos este mes.</div>'}`;
+}
+function calendarHTML(){
+ const first=new Date(month.getFullYear(),month.getMonth(),1,12),days=new Date(month.getFullYear(),month.getMonth()+1,0).getDate(),start=(first.getDay()+6)%7,ev=events(month);
+ let s='<div class="dow">L</div><div class="dow">M</div><div class="dow">X</div><div class="dow">J</div><div class="dow">V</div><div class="dow">S</div><div class="dow">D</div>';
+ for(let i=0;i<start;i++)s+='<div class="day blank"></div>';
+ for(let d=1;d<=days;d++){const has=ev.some(e=>new Date(e.date).getDate()===d);s+=`<div class="day ${has?"has":""}">${d}${has?'<i class="dot"></i>':''}</div>`}return s;
+}
+function eventCard(e){
+ const col=e.kind==="income"?"green":e.kind==="expense"?"red":"orange";
+ return `<div class="event"><div class="eventtop"><div><b>${safe(e.name)}</b><div class="small">${new Date(e.date).toLocaleString("es-ES")} · ${safe(e.place||"Sin lugar")}</div></div><b class="${col}">${e.kind==="income"?"+":"−"}${EUR(e.amount)}</b></div>
+ <span class="pill">${safe(e.type)}</span><span class="pill ${e.status==="settled"?"settled":"pending"}">${statusText(e.status,e.kind)}</span>
+ <div class="two"><button class="secondary" onclick="toggleEvent('${e.id}','${e.kind}')">${e.status==="settled"?"Marcar pendiente":"Marcar "+(e.kind==="income"?"cobrado":"pagado")}</button><button class="danger" onclick="removeEvent('${e.id}')">Eliminar</button></div></div>`;
+}
+function statsView(){
+ const t=totals(),months=monthRangeBack(12,month),vals=months.map(m=>({m,t:totals(m)}));
+ let best=vals.reduce((a,b)=>b.t.incAct>a.t.incAct?b:a,vals[0]||{m:month,t:{incAct:0}});
+ let prev=new Date(month.getFullYear(),month.getMonth()-1,1,12),pt=totals(prev),diff=pt.incAct?((t.incAct-pt.incAct)/pt.incAct*100):0;
+ return `${monthbar()}
+ <div class="stat4"><div class="statmini"><div class="label">REAL</div><div class="value gold">${EUR(t.balAct)}</div></div><div class="statmini"><div class="label">PROYECTADO</div><div class="value blue">${EUR(t.balProj)}</div></div>
+ <div class="statmini"><div class="label">VS MES ANTERIOR</div><div class="value ${diff>=0?"green":"red"}">${diff>=0?"+":""}${diff.toFixed(1)}%</div></div><div class="statmini"><div class="label">MEJOR MES</div><div class="value green">${best.m.toLocaleDateString("es-ES",{month:"short"})}</div><div class="small">${EUR(best.t.incAct)}</div></div></div>
+ <div class="section"><span>Últimos 12 meses</span></div><div class="card"><div class="chartwrap"><canvas id="trend"></canvas></div><div class="legend"><span class="green">● Entradas</span><span class="red">● Gastos</span><span class="orange">● Deducciones</span></div></div>
+ <div class="section"><span>Ahorro acumulado</span></div><div class="card trophy"><div class="trophyTitle"><span>🏆</span><span>Tu logro</span></div><div class="trophyAmount">${EUR(savingsAtViewedMonth(month))}</div><div class="small">Cada mes cerrado suma o resta automáticamente según el balance real.</div></div>`;
+}
+function settingsView(){
+ return `<div class="section"><span>Configuración</span></div><div class="card"><label>Pago base por sábado<input id="sr" type="number" step="0.01" value="${data.settings.saturdayRate}"></label><label>Trabajo mensual<input id="mj" type="number" step="0.01" value="${data.fixed.monthlyJob.amount}"></label><label>Sueldo extra mensual<input id="ex" type="number" step="0.01" value="${data.fixed.extraSalary.amount}"></label><button class="primary" onclick="saveSettings()">Guardar</button></div>
+ <div class="section"><span>Copia de seguridad</span></div><div class="card"><div class="small">Haz una copia de vez en cuando. Tus datos viven en este iPhone.</div><button class="secondary" onclick="exportData()">Exportar copia</button><button class="secondary" onclick="importData()">Importar copia</button></div>
+ <div class="notice">Ahorros: el saldo positivo de un mes se suma al ahorro al comenzar el siguiente. Si el mes actual queda negativo, ese déficit se descuenta del fondo de ahorro.</div>`;
+}
+
+function movementForm(kind){
+ openModal(`<h2>${kind==="income"?"Nueva entrada":kind==="expense"?"Nuevo gasto":"Nueva deducción"}</h2><label>Nombre<input id="mt"></label><label>Categoría<input id="mc" placeholder="Comida, transporte, alquiler..."></label><label>Valor (€)<input id="ma" type="number" step="0.01"></label><label>Fecha<input id="md" type="date" value="${new Date().toISOString().slice(0,10)}"></label><label>Estado<select id="ms"><option value="pending">Pendiente</option><option value="settled">${kind==="income"?"Cobrado":"Pagado"}</option></select></label><label><input id="mr" type="checkbox"> Repetir cada mes</label><button class="primary" onclick="addMove('${kind}')">Guardar</button>`);
+}
+function addMove(kind){
+ const a=+document.getElementById("ma").value;if(a<=0)return alert("Escribe un valor mayor que 0.");
+ data.movements.push({id:uid(),title:document.getElementById("mt").value||"Movimiento",category:document.getElementById("mc").value||"General",amount:a,kind,date:new Date(document.getElementById("md").value+"T12:00:00").toISOString(),status:document.getElementById("ms").value,recurring:document.getElementById("mr").checked});
+ save();closeModal();render();
+}
+function saturdayForm(k){
+ const s=satInfo(month).find(x=>x.key===k);
+ openModal(`<h2>Sábado ${new Date(k+"T12:00:00").toLocaleDateString("es-ES",{day:"numeric",month:"long"})}</h2><label>Valor (€)<input id="sa" type="number" step="0.01" value="${s.amount}"></label><label>Estado<select id="ss"><option value="pending" ${s.status==="pending"?"selected":""}>Pendiente</option><option value="settled" ${s.status==="settled"?"selected":""}>Cobrado</option><option value="skipped" ${s.status==="skipped"?"selected":""}>No trabajado</option></select></label><button class="primary" onclick="saveSat('${k}')">Guardar</button>`);
+}
+function saveSat(k){data.saturdayOverrides[k]={amount:+document.getElementById("sa").value||0,status:document.getElementById("ss").value};save();closeModal();render()}
+function eventForm(){
+ openModal(`<h2>Nuevo evento</h2><label>Nombre<input id="en"></label><label>Fecha y hora<input id="ed" type="datetime-local"></label><label>Lugar<input id="ep"></label><label>Tipo de evento<input id="et" placeholder="DJ, fiesta, cumpleaños..."></label><label>Movimiento<select id="ek"><option value="income">Entrada</option><option value="expense">Salida</option><option value="deduction">Deducción</option></select></label><label>Valor (€)<input id="ea" type="number" step="0.01"></label><label>Estado<select id="es"><option value="pending">Pendiente</option><option value="settled">Cobrado / pagado</option></select></label><label>Notas<textarea id="eno"></textarea></label><button class="primary" onclick="addEvent()">Guardar evento</button>`);
+}
+function addEvent(){
+ const d=document.getElementById("ed").value;if(!d)return alert("Selecciona fecha y hora.");
+ data.events.push({id:uid(),name:document.getElementById("en").value||"Evento",date:new Date(d).toISOString(),place:document.getElementById("ep").value||"",type:document.getElementById("et").value||"Evento",kind:document.getElementById("ek").value,amount:+document.getElementById("ea").value||0,status:document.getElementById("es").value,notes:document.getElementById("eno").value||""});
+ save();closeModal();render();
+}
+function ask(title,text,yes){document.getElementById("confirmTitle").textContent=title;document.getElementById("confirmText").textContent=text;document.getElementById("confirm").classList.add("open");document.getElementById("confirmYes").onclick=()=>{closeConfirm();yes()}}
+function closeConfirm(){document.getElementById("confirm").classList.remove("open")}
+function toggleFixed(key){
+ const fx=fixedForMonth(month),x=fx[key];
+ if(x.status==="settled"){setFixedStatus(month,key,"pending");render()}
+ else ask("¿Seguro?","¿Quieres marcar este ingreso como cobrado?",()=>{setFixedStatus(month,key,"settled");render()});
+}
+function toggleMove(id,kind,virtualMonth){
+ if(virtualMonth){
+   const k=id+"|"+virtualMonth,current=data.recurringStatus[k]||"pending";
+   if(current==="settled"){data.recurringStatus[k]="pending";save();render()}
+   else ask("¿Seguro?",kind==="income"?"¿Quieres marcar este ingreso como cobrado?":"¿Quieres marcar este importe como pagado?",()=>{data.recurringStatus[k]="settled";save();render()});
+   return;
+ }
+ const x=data.movements.find(x=>x.id===id);if(!x)return;
+ if(x.status==="settled"){x.status="pending";save();render()}
+ else ask("¿Seguro?",kind==="income"?"¿Quieres marcar este ingreso como cobrado?":"¿Quieres marcar este importe como pagado?",()=>{x.status="settled";save();render()});
+}
+function toggleEvent(id,kind){
+ const x=data.events.find(x=>x.id===id);if(!x)return;
+ if(x.status==="settled"){x.status="pending";save();render()}
+ else ask("¿Seguro?",kind==="income"?"¿Quieres marcar este evento como cobrado?":"¿Quieres marcar este evento como pagado?",()=>{x.status="settled";save();render()});
+}
+function removeMove(id){ask("Eliminar movimiento","¿Seguro que quieres eliminarlo?",()=>{data.movements=data.movements.filter(x=>x.id!==id);save();render()})}
+function removeEvent(id){ask("Eliminar evento","¿Seguro que quieres eliminarlo?",()=>{data.events=data.events.filter(x=>x.id!==id);save();render()})}
+function saveSettings(){data.settings.saturdayRate=+document.getElementById("sr").value||0;data.fixed.monthlyJob.amount=+document.getElementById("mj").value||0;data.fixed.extraSalary.amount=+document.getElementById("ex").value||0;save();render()}
+function shift(n){month=new Date(month.getFullYear(),month.getMonth()+n,1,12);render()}
+function openModal(h){document.getElementById("modalBody").innerHTML=h;document.getElementById("modal").classList.add("open")}
+function closeModal(){document.getElementById("modal").classList.remove("open")}
+function exportData(){const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));a.download="DJ-Finanzas-copia-"+new Date().toISOString().slice(0,10)+".json";a.click()}
+function importData(){const i=document.createElement("input");i.type="file";i.accept=".json";i.onchange=()=>{const r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);normalize();render();alert("Copia importada correctamente.")}catch(e){alert("Archivo no válido.")}};r.readAsText(i.files[0])};i.click()}
+
+function setupCanvas(id){const c=document.getElementById(id);if(!c)return null;const rect=c.getBoundingClientRect(),dpr=window.devicePixelRatio||1;c.width=rect.width*dpr;c.height=rect.height*dpr;const ctx=c.getContext("2d");ctx.scale(dpr,dpr);return{ctx,w:rect.width,h:rect.height}}
+function drawStats(){
+ const o=setupCanvas("trend");if(!o)return;const {ctx,w,h}=o,p={l:10,r:10,t:16,b:28},arr=monthRangeBack(12,month).map(m=>({label:m.toLocaleDateString("es-ES",{month:"short"}),t:totals(m)}));
+ const max=Math.max(1,...arr.flatMap(x=>[x.t.incAct,x.t.expAct,x.t.dedAct]));
+ ctx.clearRect(0,0,w,h);ctx.strokeStyle="rgba(255,255,255,.08)";ctx.lineWidth=1;
+ for(let i=0;i<4;i++){const y=p.t+(h-p.t-p.b)*i/3;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke()}
+ function line(key,color){ctx.strokeStyle=color;ctx.lineWidth=2.8;ctx.lineJoin="round";ctx.lineCap="round";ctx.beginPath();arr.forEach((x,i)=>{const xx=p.l+(w-p.l-p.r)*i/(arr.length-1),yy=h-p.b-(h-p.t-p.b)*x.t[key]/max;i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)});ctx.stroke()}
+ line("incAct","#48d18b");line("expAct","#ff7d86");line("dedAct","#e7a65c");
+ ctx.fillStyle="#9ba6b7";ctx.font="10px -apple-system";ctx.textAlign="center";
+ arr.forEach((x,i)=>{if(i%2===0||i===arr.length-1){const xx=p.l+(w-p.l-p.r)*i/(arr.length-1);ctx.fillText(x.label,xx,h-8)}})
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render()});
+if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{})}
+render();
+</script>
+</body></html>
