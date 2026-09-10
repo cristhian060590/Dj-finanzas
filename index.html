@@ -313,6 +313,22 @@ main#app.swipe-animating{
 </style>
 
 
+
+<style id="v6-2-2-filter-group">
+.money-filter-group{
+  margin:12px 0 18px;
+  padding:2px 0 4px;
+}
+.money-filter-group .move,
+.money-filter-group .row{
+  margin:9px 0;
+}
+.money-filter-group .row{
+  padding:14px;
+  border-radius:18px;
+}
+</style>
+
 </head>
 <body>
 <header><div class="brand"><img src="logo-interior.jpg" alt="Logo Cristhian Grisales"><div><h1>DJ Finanzas</h1><div class="sub">Control financiero & agenda</div></div></div></header>
@@ -477,14 +493,14 @@ function moneyView(){
 }
 function fixedRow(key,label,x){
  const cls=x.status==="settled"?"fixedSettled flash-income":"";
- return `<div class="row ${cls}"><div><b>${label}</b><div class="small">${statusText(x.status,"income")}</div></div><div style="text-align:right"><b class="green">${EUR(x.amount)}</b><br><button class="secondary" style="width:auto;padding:8px 10px" onclick="toggleFixed('${key}')">${x.status==="settled"?"Pendiente":"Cobrado"}</button></div></div>`;
+ return `<div class="row ${cls}" data-money-item="1" data-money-kind="income" data-money-status="${x.status}"><div><b>${label}</b><div class="small">${statusText(x.status,"income")}</div></div><div style="text-align:right"><b class="green">${EUR(x.amount)}</b><br><button class="secondary" style="width:auto;padding:8px 10px" onclick="toggleFixed('${key}')">${x.status==="settled"?"Pendiente":"Cobrado"}</button></div></div>`;
 }
 function movementCard(x){
  const base=x.kind==="expense"?"expenseBox":x.kind==="deduction"?"deductionBox":"incomeBox",paid=x.status==="settled"?"settledAqua":"",flash=x.status==="settled"?(x.kind==="income"?"flash-income":"flash-out"):"",col=x.kind==="income"?"green":x.kind==="expense"?"red":"orange";
  const id=x._virtual?x._base:x.id,monthKey=mk(month);
- return `<div class="move ${base} ${paid} ${flash}"><div class="eventtop"><div><b>${safe(x.title)}</b><div class="small">${safe(x.category)} · ${new Date(x.date).toLocaleDateString("es-ES")}</div></div><b class="${col}">${x.kind==="income"?"+":"−"}${EUR(x.amount)}</b></div><span class="pill ${x.status==="settled"?"settled":"pending"}">${statusText(x.status,x.kind)}</span>${x.recurring?'<span class="pill">Mensual</span>':''}<div class="two"><button class="secondary" onclick="toggleMove('${id}','${x.kind}','${x._virtual?monthKey:""}')">${x.status==="settled"?"Marcar pendiente":"Marcar "+(x.kind==="income"?"cobrado":"pagado")}</button><button class="danger" onclick="removeMove('${id}')">Eliminar</button></div></div>`;
+ return `<div class="move ${base} ${paid} ${flash}" data-money-item="1" data-money-kind="${x.kind}" data-money-status="${x.status}"><div class="eventtop"><div><b>${safe(x.title)}</b><div class="small">${safe(x.category)} · ${new Date(x.date).toLocaleDateString("es-ES")}</div></div><b class="${col}">${x.kind==="income"?"+":"−"}${EUR(x.amount)}</b></div><span class="pill ${x.status==="settled"?"settled":"pending"}">${statusText(x.status,x.kind)}</span>${x.recurring?'<span class="pill">Mensual</span>':''}<div class="two"><button class="secondary" onclick="toggleMove('${id}','${x.kind}','${x._virtual?monthKey:""}')">${x.status==="settled"?"Marcar pendiente":"Marcar "+(x.kind==="income"?"cobrado":"pagado")}</button><button class="danger" onclick="removeMove('${id}')">Eliminar</button></div></div>`;
 }
-function satRow(s){const now=new Date(),d=new Date(s.date);d.setHours(23,59,59,999);let cls="satNormal";if(s.status==="settled")cls="satGreen";else if(s.status==="skipped")cls="satRed";else if(d<now)cls="satAqua";return `<div class="row ${cls}"><div><b>${s.date.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"})}</b><div class="small">${statusText(s.status,"income")} · ${EUR(s.amount)}</div></div><button class="iconbtn" onclick="saturdayForm('${s.key}')">✎</button></div>`}
+function satRow(s){const now=new Date(),d=new Date(s.date);d.setHours(23,59,59,999);let cls="satNormal";if(s.status==="settled")cls="satGreen";else if(s.status==="skipped")cls="satRed";else if(d<now)cls="satAqua";return `<div class="row ${cls}" data-money-item="1" data-money-kind="income" data-money-status="${s.status}"><div><b>${s.date.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"})}</b><div class="small">${statusText(s.status,"income")} · ${EUR(s.amount)}</div></div><button class="iconbtn" onclick="saturdayForm('${s.key}')">✎</button></div>`}
 function runPendingFlash(){if(!pendingFlash)return;if(pendingFlash.type==="income"){const els=[...document.querySelectorAll(".flash-income")];if(els.length){els[0].scrollIntoView({behavior:"smooth",block:"center"});els.forEach(e=>e.classList.add("flash-target"))}}else if(pendingFlash.type==="out"){const els=[...document.querySelectorAll(".flash-out")];if(els.length){els[0].scrollIntoView({behavior:"smooth",block:"center"});els.forEach(e=>e.classList.add("flash-target"))}}else if(pendingFlash.type==="event"){const el=document.getElementById("event-"+pendingFlash.id);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash-target")}}pendingFlash=null}
 function agendaView(){
  const ev=events(month).sort((a,b)=>new Date(a.date)-new Date(b.date));
@@ -680,55 +696,26 @@ render();
 
 
 
+
 <script id="v6-2-money-filter">
 (function(){
   let moneyFilter = null;
   let blinkTimer = null;
 
-  function app(){ return document.getElementById("app"); }
+  function root(){ return document.getElementById("app"); }
 
-  function allFilterable(){
-    const root=app();
-    if(!root) return [];
-    return [...root.querySelectorAll(".move,.row")].filter(el=>{
-      /* Only rows/cards inside the Money screen; exclude month controls */
-      return !el.closest(".monthbar");
-    });
-  }
+  function isMatch(el,mode){
+    const kind=el.dataset.moneyKind;
+    const status=el.dataset.moneyStatus;
+    const settled=status==="settled";
 
-  function state(el){
-    const text=(el.textContent||"").toLowerCase();
-    const cls=(el.className||"").toLowerCase();
-
-    const expense = cls.includes("expensebox") || text.includes("gasto");
-    const deduction = cls.includes("deductionbox") || text.includes("deducci");
-    const outgoing = expense || deduction;
-
-    /* Money-page income types */
-    const fixedIncome = el.closest(".incomebox") !== null && el.classList.contains("row");
-    const movementIncome = cls.includes("incomebox");
-    const saturday = cls.includes("satgreen") || cls.includes("sataqua") ||
-                     cls.includes("satred") || cls.includes("satnormal");
-    const income = fixedIncome || movementIncome || saturday;
-
-    const settled = cls.includes("settledaqua") ||
-                    cls.includes("fixedsettled") ||
-                    cls.includes("satgreen") ||
-                    text.includes("pagado") ||
-                    text.includes("cobrado");
-
-    return {outgoing,income,settled};
-  }
-
-  function matches(el,mode){
-    const s=state(el);
-    if(mode==="collected") return s.income && s.settled;
-    if(mode==="paid") return s.outgoing && s.settled;
-    if(mode==="pendingOut") return s.outgoing && !s.settled;
+    if(mode==="collected") return kind==="income" && settled;
+    if(mode==="paid") return (kind==="expense" || kind==="deduction") && settled;
+    if(mode==="pendingOut") return (kind==="expense" || kind==="deduction") && !settled;
     return false;
   }
 
-  function labelFor(mode){
+  function title(mode){
     if(mode==="collected") return "💰 Cobrado";
     if(mode==="paid") return "✓ Salidas pagadas";
     return "⏳ Pendiente por pagar";
@@ -736,45 +723,50 @@ render();
 
   function applyMoneyFilter(){
     if(window.tab!=="money" || !moneyFilter) return;
-    const root=app();
-    if(!root) return;
+    const app=root();
+    if(!app) return;
 
-    root.querySelectorAll(".money-filter-banner").forEach(x=>x.remove());
-    root.querySelectorAll(".money-filter-target,.money-filter-dim,.money-filter-blink").forEach(el=>{
-      el.classList.remove("money-filter-target","money-filter-dim","money-filter-blink");
+    app.querySelectorAll(".money-filter-group,.money-filter-banner").forEach(x=>x.remove());
+    app.querySelectorAll(".money-filter-dim,.money-filter-target,.money-filter-blink").forEach(el=>{
+      el.classList.remove("money-filter-dim","money-filter-target","money-filter-blink");
     });
 
-    const items=allFilterable();
-    const matched=items.filter(el=>matches(el,moneyFilter));
+    const items=[...app.querySelectorAll('[data-money-item="1"]')];
+    const matched=items.filter(el=>isMatch(el,moneyFilter));
 
-    if(!matched.length) return;
+    const monthbar=app.querySelector(".monthbar");
+    const insertBeforeNode=monthbar ? monthbar.nextElementSibling : app.firstElementChild;
 
-    /* Put matching movements together at the top of their common Money content area.
-       We insert each target before the first section after the month bar. */
-    const firstSection=root.querySelector(".section");
-    const anchor=firstSection || items[0];
+    const group=document.createElement("div");
+    group.className="money-filter-group";
 
     const banner=document.createElement("div");
     banner.className="money-filter-banner";
-    banner.innerHTML=`<strong>${labelFor(moneyFilter)}</strong>
-      <div style="font-size:.88rem;opacity:.72;margin-top:3px">${matched.length} movimiento${matched.length===1?"":"s"}</div>`;
+    banner.innerHTML=`<strong>${title(moneyFilter)}</strong>
+      <div style="font-size:.88rem;opacity:.72;margin-top:3px">
+        ${matched.length} movimiento${matched.length===1?"":"s"} agrupado${matched.length===1?"":"s"}
+      </div>`;
+    group.appendChild(banner);
 
-    if(anchor && anchor.parentNode){
-      anchor.parentNode.insertBefore(banner,anchor);
+    if(matched.length){
       matched.forEach(el=>{
-        /* Never detach a fixed-income row from its card because it would break its layout.
-           For fixed income, highlight it in place. Everything else is grouped physically. */
-        const isFixed=el.classList.contains("row") && el.closest(".incomebox");
-        if(!isFixed) anchor.parentNode.insertBefore(el,anchor);
+        el.classList.add("money-filter-target","money-filter-blink");
+        group.appendChild(el);
       });
+    }else{
+      const empty=document.createElement("div");
+      empty.className="empty";
+      empty.textContent=moneyFilter==="pendingOut"
+        ?"No tienes gastos ni deducciones pendientes por pagar."
+        :"No hay movimientos para este filtro.";
+      group.appendChild(empty);
     }
 
+    if(insertBeforeNode) app.insertBefore(group,insertBeforeNode);
+    else app.appendChild(group);
+
     items.forEach(el=>{
-      if(matched.includes(el)){
-        el.classList.add("money-filter-target","money-filter-blink");
-      }else{
-        el.classList.add("money-filter-dim");
-      }
+      if(!matched.includes(el)) el.classList.add("money-filter-dim");
     });
 
     clearTimeout(blinkTimer);
@@ -783,9 +775,8 @@ render();
     },3400);
 
     setTimeout(()=>{
-      const first=matched[0];
-      if(first) first.scrollIntoView({behavior:"smooth",block:"center"});
-    },90);
+      group.scrollIntoView({behavior:"smooth",block:"start"});
+    },70);
   }
 
   window.v62OpenMoneyFilter=function(mode){
@@ -797,14 +788,13 @@ render();
 
   window.v62ClearMoneyFilter=function(){ moneyFilter=null; };
 
-  /* Clear only after leaving the Money page. */
+  /* Keep filter while in Money; clear when user leaves the main Money page. */
   document.addEventListener("click",function(e){
-    const nav=e.target.closest("nav button[data-tab]");
-    if(!nav) return;
-    if(nav.dataset.tab!=="money") moneyFilter=null;
+    const b=e.target.closest("nav button[data-tab]");
+    if(!b) return;
+    if(b.dataset.tab!=="money") moneyFilter=null;
   },true);
 
-  /* Reapply after any render while still on Money, so the grouping survives actions there. */
   const originalRender=window.render;
   if(typeof originalRender==="function"){
     window.render=function(){
@@ -815,15 +805,14 @@ render();
     };
   }
 
-  /* Swiping to another principal page must clear the temporary filter. */
-  let remembered=window.tab;
+  let lastTab=window.tab;
   setInterval(()=>{
-    const now=window.tab;
-    if(remembered==="money" && now!=="money") moneyFilter=null;
-    remembered=now;
+    if(lastTab==="money" && window.tab!=="money") moneyFilter=null;
+    lastTab=window.tab;
   },120);
 })();
 </script>
+
 
 
 </body></html>
