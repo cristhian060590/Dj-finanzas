@@ -263,70 +263,36 @@ main#app.swipe-animating{
 
 
 
-
-<style id="v6-2-money-filter-style">
-/* V6.2.1 — filtro temporal en vidrio PERLA/PLATEADO, color exclusivo */
+<style id="v6-2-3-money-filter">
 .money-filter-banner{
   margin:10px 0 14px;
-  padding:12px 14px;
-  border-radius:18px;
+  padding:13px 15px;
+  border-radius:20px;
   background:
-    radial-gradient(120% 120% at 10% 0%,rgba(255,255,255,.28),transparent 52%),
-    linear-gradient(145deg,rgba(224,232,242,.22),rgba(120,132,149,.09))!important;
-  border:1px solid rgba(238,244,252,.34)!important;
-  -webkit-backdrop-filter:blur(30px) saturate(165%);
-  backdrop-filter:blur(30px) saturate(165%);
-  box-shadow:
-    0 14px 38px rgba(0,0,0,.24),
-    inset 0 1px 0 rgba(255,255,255,.32),
-    inset 0 -1px 0 rgba(255,255,255,.06);
+    radial-gradient(110% 100% at 8% 0%,rgba(255,255,255,.31),transparent 48%),
+    linear-gradient(145deg,rgba(223,231,241,.22),rgba(112,124,140,.08))!important;
+  border:1px solid rgba(241,246,252,.35)!important;
+  -webkit-backdrop-filter:blur(32px) saturate(165%);
+  backdrop-filter:blur(32px) saturate(165%);
+  box-shadow:0 16px 40px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.34);
 }
+.money-filter-list{display:block}
 .money-filter-target{
   background:
-    radial-gradient(110% 95% at 8% 0%,rgba(255,255,255,.34),transparent 48%),
-    linear-gradient(145deg,rgba(220,229,240,.25),rgba(107,119,136,.10))!important;
+    radial-gradient(115% 100% at 8% 0%,rgba(255,255,255,.35),transparent 50%),
+    linear-gradient(145deg,rgba(222,230,240,.24),rgba(103,115,132,.09))!important;
   border-color:rgba(241,246,252,.38)!important;
-  box-shadow:
-    0 16px 44px rgba(0,0,0,.24),
-    0 0 24px rgba(224,233,244,.10),
-    inset 0 1px 0 rgba(255,255,255,.38)!important;
+  box-shadow:0 16px 44px rgba(0,0,0,.24),0 0 24px rgba(229,237,246,.10),inset 0 1px 0 rgba(255,255,255,.38)!important;
 }
 .money-filter-target.money-filter-blink{
-  animation:v621Blink 1.05s ease-in-out 3;
+  animation:v623Blink 1.05s ease-in-out 3;
 }
-@keyframes v621Blink{
-  0%,100%{
-    filter:brightness(1);
-    box-shadow:0 16px 44px rgba(0,0,0,.24),0 0 16px rgba(235,242,250,.08),inset 0 1px 0 rgba(255,255,255,.38);
-  }
-  50%{
-    filter:brightness(1.28);
-    box-shadow:0 16px 44px rgba(0,0,0,.22),0 0 34px rgba(238,245,252,.30),inset 0 1px 0 rgba(255,255,255,.52);
-  }
+@keyframes v623Blink{
+  0%,100%{filter:brightness(1);transform:translateZ(0)}
+  50%{filter:brightness(1.30);transform:translateZ(0) scale(1.008);box-shadow:0 16px 44px rgba(0,0,0,.22),0 0 34px rgba(238,245,252,.28),inset 0 1px 0 rgba(255,255,255,.50)!important}
 }
-.money-filter-dim{
-  opacity:.32;
-  transition:opacity .22s ease;
-}
-.clickableCard{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.clickableCard{-webkit-tap-highlight-color:transparent;cursor:pointer}
 .clickableCard:active{transform:scale(.985)}
-</style>
-
-
-
-<style id="v6-2-2-filter-group">
-.money-filter-group{
-  margin:12px 0 18px;
-  padding:2px 0 4px;
-}
-.money-filter-group .move,
-.money-filter-group .row{
-  margin:9px 0;
-}
-.money-filter-group .row{
-  padding:14px;
-  border-radius:18px;
-}
 </style>
 
 </head>
@@ -384,6 +350,7 @@ function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString
 normalize();
 
 let tab="home",month=new Date();
+let moneyFilter=null;
 window.tab=tab;month.setDate(1);month.setHours(12,0,0,0);
 let pendingFlash=null;
 const EUR=n=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR"}).format(Number(n||0));
@@ -482,7 +449,52 @@ function home(){
  <div class="section"><span>Próximos eventos</span><span class="badge">${up.length}</span></div>${up.length?up.map(eventCard).join(""):'<div class="empty">No tienes eventos próximos.</div>'}`;
 }
 function goMoneyFlash(kind){tab="money";window.tab=tab;pendingFlash={type:kind};render()}
+
+function v62Decorate(markup){
+ return markup.replace('class="','class="money-filter-target money-filter-blink ');
+}
+function v62FilterTitle(mode){
+ if(mode==="collected")return"💰 Cobrado";
+ if(mode==="paid")return"✓ Salidas pagadas";
+ return"⏳ Pendiente por pagar";
+}
+function filteredMoneyView(){
+ const ms=movements(month),fx=fixedForMonth(month),ss=satInfo(month);
+ let cards=[];
+
+ if(moneyFilter==="collected"){
+   if(fx.monthlyJob.status==="settled") cards.push(v62Decorate(fixedRow("monthlyJob","Trabajo mensual",fx.monthlyJob)));
+   if(fx.extraSalary.status==="settled") cards.push(v62Decorate(fixedRow("extraSalary","Dinero extra",fx.extraSalary)));
+   ms.filter(x=>x.kind==="income"&&x.status==="settled").forEach(x=>cards.push(v62Decorate(movementCard(x))));
+   ss.filter(x=>x.status==="settled").forEach(s=>cards.push(v62Decorate(satRow(s))));
+ }
+ else if(moneyFilter==="paid"){
+   ms.filter(x=>(x.kind==="expense"||x.kind==="deduction")&&x.status==="settled")
+     .forEach(x=>cards.push(v62Decorate(movementCard(x))));
+ }
+ else if(moneyFilter==="pendingOut"){
+   ms.filter(x=>(x.kind==="expense"||x.kind==="deduction")&&x.status!=="settled")
+     .forEach(x=>cards.push(v62Decorate(movementCard(x))));
+ }
+
+ return `${monthbar()}
+ <div class="money-filter-banner"><strong>${v62FilterTitle(moneyFilter)}</strong>
+ <div class="small" style="margin-top:4px">${cards.length} movimiento${cards.length===1?"":"s"} agrupado${cards.length===1?"":"s"}</div></div>
+ <div class="money-filter-list">${cards.length?cards.join(""):'<div class="empty">No hay movimientos para este filtro.</div>'}</div>`;
+}
+function v62OpenMoneyFilter(mode){
+ moneyFilter=mode;
+ pendingFlash=null;
+ tab="money";window.tab=tab;
+ render();
+ setTimeout(()=>{
+   const first=document.querySelector(".money-filter-target");
+   if(first)first.scrollIntoView({behavior:"smooth",block:"center"});
+ },90);
+}
+
 function moneyView(){
+ if(moneyFilter)return filteredMoneyView();
  const ms=movements(month),incs=ms.filter(x=>x.kind==="income"),exps=ms.filter(x=>x.kind==="expense"),deds=ms.filter(x=>x.kind==="deduction"),fx=fixedForMonth(month);
  return `${monthbar()}
  <div class="section"><span>Ingresos fijos</span></div><div class="card incomeBox">${fixedRow("monthlyJob","Trabajo mensual",fx.monthlyJob)}${fixedRow("extraSalary","Dinero extra",fx.extraSalary)}</div>
@@ -493,14 +505,14 @@ function moneyView(){
 }
 function fixedRow(key,label,x){
  const cls=x.status==="settled"?"fixedSettled flash-income":"";
- return `<div class="row ${cls}" data-money-item="1" data-money-kind="income" data-money-status="${x.status}"><div><b>${label}</b><div class="small">${statusText(x.status,"income")}</div></div><div style="text-align:right"><b class="green">${EUR(x.amount)}</b><br><button class="secondary" style="width:auto;padding:8px 10px" onclick="toggleFixed('${key}')">${x.status==="settled"?"Pendiente":"Cobrado"}</button></div></div>`;
+ return `<div class="row ${cls}"><div><b>${label}</b><div class="small">${statusText(x.status,"income")}</div></div><div style="text-align:right"><b class="green">${EUR(x.amount)}</b><br><button class="secondary" style="width:auto;padding:8px 10px" onclick="toggleFixed('${key}')">${x.status==="settled"?"Pendiente":"Cobrado"}</button></div></div>`;
 }
 function movementCard(x){
  const base=x.kind==="expense"?"expenseBox":x.kind==="deduction"?"deductionBox":"incomeBox",paid=x.status==="settled"?"settledAqua":"",flash=x.status==="settled"?(x.kind==="income"?"flash-income":"flash-out"):"",col=x.kind==="income"?"green":x.kind==="expense"?"red":"orange";
  const id=x._virtual?x._base:x.id,monthKey=mk(month);
- return `<div class="move ${base} ${paid} ${flash}" data-money-item="1" data-money-kind="${x.kind}" data-money-status="${x.status}"><div class="eventtop"><div><b>${safe(x.title)}</b><div class="small">${safe(x.category)} · ${new Date(x.date).toLocaleDateString("es-ES")}</div></div><b class="${col}">${x.kind==="income"?"+":"−"}${EUR(x.amount)}</b></div><span class="pill ${x.status==="settled"?"settled":"pending"}">${statusText(x.status,x.kind)}</span>${x.recurring?'<span class="pill">Mensual</span>':''}<div class="two"><button class="secondary" onclick="toggleMove('${id}','${x.kind}','${x._virtual?monthKey:""}')">${x.status==="settled"?"Marcar pendiente":"Marcar "+(x.kind==="income"?"cobrado":"pagado")}</button><button class="danger" onclick="removeMove('${id}')">Eliminar</button></div></div>`;
+ return `<div class="move ${base} ${paid} ${flash}"><div class="eventtop"><div><b>${safe(x.title)}</b><div class="small">${safe(x.category)} · ${new Date(x.date).toLocaleDateString("es-ES")}</div></div><b class="${col}">${x.kind==="income"?"+":"−"}${EUR(x.amount)}</b></div><span class="pill ${x.status==="settled"?"settled":"pending"}">${statusText(x.status,x.kind)}</span>${x.recurring?'<span class="pill">Mensual</span>':''}<div class="two"><button class="secondary" onclick="toggleMove('${id}','${x.kind}','${x._virtual?monthKey:""}')">${x.status==="settled"?"Marcar pendiente":"Marcar "+(x.kind==="income"?"cobrado":"pagado")}</button><button class="danger" onclick="removeMove('${id}')">Eliminar</button></div></div>`;
 }
-function satRow(s){const now=new Date(),d=new Date(s.date);d.setHours(23,59,59,999);let cls="satNormal";if(s.status==="settled")cls="satGreen";else if(s.status==="skipped")cls="satRed";else if(d<now)cls="satAqua";return `<div class="row ${cls}" data-money-item="1" data-money-kind="income" data-money-status="${s.status}"><div><b>${s.date.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"})}</b><div class="small">${statusText(s.status,"income")} · ${EUR(s.amount)}</div></div><button class="iconbtn" onclick="saturdayForm('${s.key}')">✎</button></div>`}
+function satRow(s){const now=new Date(),d=new Date(s.date);d.setHours(23,59,59,999);let cls="satNormal";if(s.status==="settled")cls="satGreen";else if(s.status==="skipped")cls="satRed";else if(d<now)cls="satAqua";return `<div class="row ${cls}"><div><b>${s.date.toLocaleDateString("es-ES",{weekday:"short",day:"numeric",month:"short"})}</b><div class="small">${statusText(s.status,"income")} · ${EUR(s.amount)}</div></div><button class="iconbtn" onclick="saturdayForm('${s.key}')">✎</button></div>`}
 function runPendingFlash(){if(!pendingFlash)return;if(pendingFlash.type==="income"){const els=[...document.querySelectorAll(".flash-income")];if(els.length){els[0].scrollIntoView({behavior:"smooth",block:"center"});els.forEach(e=>e.classList.add("flash-target"))}}else if(pendingFlash.type==="out"){const els=[...document.querySelectorAll(".flash-out")];if(els.length){els[0].scrollIntoView({behavior:"smooth",block:"center"});els.forEach(e=>e.classList.add("flash-target"))}}else if(pendingFlash.type==="event"){const el=document.getElementById("event-"+pendingFlash.id);if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash-target")}}pendingFlash=null}
 function agendaView(){
  const ev=events(month).sort((a,b)=>new Date(a.date)-new Date(b.date));
@@ -565,7 +577,11 @@ function setupCanvas(id){const c=document.getElementById(id);if(!c)return null;c
 function drawStats(){
  const o=setupCanvas("trend");if(!o)return;const {ctx,w,h}=o,p={l:10,r:10,t:16,b:28},arr=monthRangeBack(12,month).map(m=>({label:m.toLocaleDateString("es-ES",{month:"short"}),parts:chartParts(m)}));const max=Math.max(1,...arr.flatMap(x=>Object.values(x.parts)));ctx.clearRect(0,0,w,h);ctx.strokeStyle="rgba(255,255,255,.08)";ctx.lineWidth=1;for(let i=0;i<4;i++){const y=p.t+(h-p.t-p.b)*i/3;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke()}function line(key,color){ctx.strokeStyle=color;ctx.lineWidth=2.3;ctx.lineJoin="round";ctx.lineCap="round";ctx.beginPath();arr.forEach((x,i)=>{const xx=p.l+(w-p.l-p.r)*i/(arr.length-1),yy=h-p.b-(h-p.t-p.b)*x.parts[key]/max;i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)});ctx.stroke()}line("dj","#f2c75f");line("work","#6da4ff");line("extra","#b889ff");line("exp","#ff7d86");line("ded","#e7a65c");ctx.fillStyle="#9ba6b7";ctx.font="10px -apple-system";ctx.textAlign="center";arr.forEach((x,i)=>{if(i%2===0||i===arr.length-1){const xx=p.l+(w-p.l-p.r)*i/(arr.length-1);ctx.fillText(x.label,xx,h-8)}})
 }
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;window.tab=tab;render()});
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{
+ const next=b.dataset.tab;
+ if(tab==="money"&&next!=="money")moneyFilter=null;
+ tab=next;window.tab=tab;render()
+});
 if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{})}
 render();
 </script>
@@ -666,6 +682,7 @@ render();
     el.style.opacity=".35";
 
     setTimeout(function(){
+      if(window.tab==="money" && order[next]!=="money" && typeof moneyFilter!=="undefined") moneyFilter=null;
       window.tab=order[next];
       if(typeof render==="function") render();
 
@@ -692,127 +709,6 @@ render();
   },{passive:true});
 })();
 </script>
-
-
-
-
-
-<script id="v6-2-money-filter">
-(function(){
-  let moneyFilter = null;
-  let blinkTimer = null;
-
-  function root(){ return document.getElementById("app"); }
-
-  function isMatch(el,mode){
-    const kind=el.dataset.moneyKind;
-    const status=el.dataset.moneyStatus;
-    const settled=status==="settled";
-
-    if(mode==="collected") return kind==="income" && settled;
-    if(mode==="paid") return (kind==="expense" || kind==="deduction") && settled;
-    if(mode==="pendingOut") return (kind==="expense" || kind==="deduction") && !settled;
-    return false;
-  }
-
-  function title(mode){
-    if(mode==="collected") return "💰 Cobrado";
-    if(mode==="paid") return "✓ Salidas pagadas";
-    return "⏳ Pendiente por pagar";
-  }
-
-  function applyMoneyFilter(){
-    if(window.tab!=="money" || !moneyFilter) return;
-    const app=root();
-    if(!app) return;
-
-    app.querySelectorAll(".money-filter-group,.money-filter-banner").forEach(x=>x.remove());
-    app.querySelectorAll(".money-filter-dim,.money-filter-target,.money-filter-blink").forEach(el=>{
-      el.classList.remove("money-filter-dim","money-filter-target","money-filter-blink");
-    });
-
-    const items=[...app.querySelectorAll('[data-money-item="1"]')];
-    const matched=items.filter(el=>isMatch(el,moneyFilter));
-
-    const monthbar=app.querySelector(".monthbar");
-    const insertBeforeNode=monthbar ? monthbar.nextElementSibling : app.firstElementChild;
-
-    const group=document.createElement("div");
-    group.className="money-filter-group";
-
-    const banner=document.createElement("div");
-    banner.className="money-filter-banner";
-    banner.innerHTML=`<strong>${title(moneyFilter)}</strong>
-      <div style="font-size:.88rem;opacity:.72;margin-top:3px">
-        ${matched.length} movimiento${matched.length===1?"":"s"} agrupado${matched.length===1?"":"s"}
-      </div>`;
-    group.appendChild(banner);
-
-    if(matched.length){
-      matched.forEach(el=>{
-        el.classList.add("money-filter-target","money-filter-blink");
-        group.appendChild(el);
-      });
-    }else{
-      const empty=document.createElement("div");
-      empty.className="empty";
-      empty.textContent=moneyFilter==="pendingOut"
-        ?"No tienes gastos ni deducciones pendientes por pagar."
-        :"No hay movimientos para este filtro.";
-      group.appendChild(empty);
-    }
-
-    if(insertBeforeNode) app.insertBefore(group,insertBeforeNode);
-    else app.appendChild(group);
-
-    items.forEach(el=>{
-      if(!matched.includes(el)) el.classList.add("money-filter-dim");
-    });
-
-    clearTimeout(blinkTimer);
-    blinkTimer=setTimeout(()=>{
-      matched.forEach(el=>el.classList.remove("money-filter-blink"));
-    },3400);
-
-    setTimeout(()=>{
-      group.scrollIntoView({behavior:"smooth",block:"start"});
-    },70);
-  }
-
-  window.v62OpenMoneyFilter=function(mode){
-    moneyFilter=mode;
-    window.tab="money";
-    if(typeof render==="function") render();
-    requestAnimationFrame(()=>requestAnimationFrame(applyMoneyFilter));
-  };
-
-  window.v62ClearMoneyFilter=function(){ moneyFilter=null; };
-
-  /* Keep filter while in Money; clear when user leaves the main Money page. */
-  document.addEventListener("click",function(e){
-    const b=e.target.closest("nav button[data-tab]");
-    if(!b) return;
-    if(b.dataset.tab!=="money") moneyFilter=null;
-  },true);
-
-  const originalRender=window.render;
-  if(typeof originalRender==="function"){
-    window.render=function(){
-      originalRender.apply(this,arguments);
-      if(window.tab==="money" && moneyFilter){
-        requestAnimationFrame(()=>requestAnimationFrame(applyMoneyFilter));
-      }
-    };
-  }
-
-  let lastTab=window.tab;
-  setInterval(()=>{
-    if(lastTab==="money" && window.tab!=="money") moneyFilter=null;
-    lastTab=window.tab;
-  },120);
-})();
-</script>
-
 
 
 </body></html>
