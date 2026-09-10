@@ -89,6 +89,120 @@ textarea{min-height:78px}
 .projection.positive{color:var(--green);font-weight:800}.projection.negative{color:var(--red);font-weight:800}.clickableCard{cursor:pointer}.flash-target{animation:flashPulse 1s ease-in-out 3}@keyframes flashPulse{0%,100%{transform:scale(1);box-shadow:0 0 0 rgba(109,164,255,0)}50%{transform:scale(1.015);box-shadow:0 0 24px rgba(109,164,255,.42)}}
 .settledAqua{background:linear-gradient(135deg,rgba(83,211,208,.23),rgba(93,184,208,.12))!important;border-color:rgba(116,226,222,.32)!important}.satAqua{background:linear-gradient(135deg,rgba(83,211,208,.20),rgba(93,184,208,.09));border:1px solid rgba(116,226,222,.28);border-radius:14px;padding:9px 10px;margin:5px 0}.satGreen{background:linear-gradient(135deg,rgba(72,209,139,.22),rgba(72,209,139,.08));border:1px solid rgba(72,209,139,.28);border-radius:14px;padding:9px 10px;margin:5px 0}.satRed{background:linear-gradient(135deg,rgba(255,125,134,.20),rgba(255,125,134,.07));border:1px solid rgba(255,125,134,.26);border-radius:14px;padding:9px 10px;margin:5px 0}.satNormal{padding:9px 10px;margin:5px 0;border-radius:14px}.eventArtistic{border-left:4px solid #9a7cff;background:linear-gradient(135deg,rgba(126,96,229,.13),rgba(37,31,70,.05))}.eventPersonal{border-left:4px solid #48d9c0;background:linear-gradient(135deg,rgba(72,217,192,.12),rgba(30,74,68,.05))}.eventLegend{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 2px;font-size:11px;color:var(--muted)}.legendDot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}.legendArt{background:#9a7cff}.legendPer{background:#48d9c0}.day.artistic{background:rgba(154,124,255,.13);border-color:rgba(154,124,255,.30)}.day.personal{background:rgba(72,217,192,.13);border-color:rgba(72,217,192,.30)}.day.both{background:linear-gradient(135deg,rgba(154,124,255,.18),rgba(72,217,192,.18));border-color:rgba(170,190,230,.30)}.day{cursor:pointer}.day .miniDots{position:absolute;right:5px;bottom:5px;display:flex;gap:3px}.day .miniDots i{width:5px;height:5px;border-radius:50%;display:block}.day .miniDots .a{background:#9a7cff}.day .miniDots .p{background:#48d9c0}.chartLegendGrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 10px;font-size:10px;color:var(--muted);margin-top:9px}.chartLegendGrid span:before{content:'●';margin-right:5px}.c-dj:before{color:#f2c75f}.c-work:before{color:#6da4ff}.c-extra:before{color:#b889ff}.c-other:before{color:#48d18b}.c-exp:before{color:#ff7d86}.c-ded:before{color:#e7a65c}.fixedSettled{background:linear-gradient(135deg,rgba(83,211,208,.21),rgba(93,184,208,.10));border-radius:14px;padding-left:10px;padding-right:10px}
 </style>
+
+<style id="v6-liquid-glass">
+:root{
+  --glass-blur:24px;
+  --glass-sat:165%;
+  --glass-border:rgba(255,255,255,.16);
+  --glass-shadow:0 14px 36px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.11);
+}
+body{
+  background:
+    radial-gradient(900px 520px at 5% -10%, rgba(109,164,255,.12), transparent 62%),
+    radial-gradient(700px 460px at 100% 12%, rgba(154,124,255,.10), transparent 58%),
+    radial-gradient(650px 520px at 50% 110%, rgba(72,217,192,.07), transparent 60%),
+    var(--bg)!important;
+  background-attachment:fixed;
+}
+.card,.hero,.move,.event,.notice,.statmini,.monthbar,.quick button,.primary,.secondary,.danger,.iconbtn,.modalbox,.confirmbox,nav{
+  -webkit-backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  backdrop-filter:blur(var(--glass-blur)) saturate(var(--glass-sat));
+  border-color:var(--glass-border)!important;
+  box-shadow:var(--glass-shadow);
+}
+.card,.hero,.move,.event,.notice,.statmini,.monthbar,.quick button,.modalbox,.confirmbox{
+  position:relative;
+  overflow:hidden;
+}
+.card::before,.hero::before,.move::before,.event::before,.notice::before,.statmini::before,.monthbar::before,.quick button::before,.modalbox::before,.confirmbox::before{
+  content:"";
+  pointer-events:none;
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.105),rgba(255,255,255,.022) 32%,transparent 58%);
+  opacity:.78;
+}
+.card,.hero,.notice,.statmini,.monthbar,.quick button,.modalbox,.confirmbox{
+  background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.026))!important;
+}
+.expenseBox{
+  background:linear-gradient(145deg,rgba(255,125,134,.22),rgba(255,125,134,.075))!important;
+  border-color:rgba(255,145,152,.26)!important;
+}
+.deductionBox{
+  background:linear-gradient(145deg,rgba(231,166,92,.22),rgba(231,166,92,.072))!important;
+  border-color:rgba(238,184,116,.25)!important;
+}
+.incomeBox{
+  background:linear-gradient(145deg,rgba(72,209,139,.17),rgba(72,209,139,.055))!important;
+  border-color:rgba(95,220,158,.22)!important;
+}
+.settledAqua,.fixedSettled,.satAqua{
+  background:linear-gradient(145deg,rgba(83,211,208,.23),rgba(93,184,208,.085))!important;
+  border-color:rgba(116,226,222,.31)!important;
+}
+.satGreen{
+  background:linear-gradient(145deg,rgba(72,209,139,.24),rgba(72,209,139,.075))!important;
+  border-color:rgba(95,220,158,.29)!important;
+}
+.satRed{
+  background:linear-gradient(145deg,rgba(255,125,134,.23),rgba(255,125,134,.075))!important;
+  border-color:rgba(255,145,152,.28)!important;
+}
+.eventArtistic{
+  background:linear-gradient(145deg,rgba(154,124,255,.20),rgba(154,124,255,.055))!important;
+  border-color:rgba(174,151,255,.24)!important;
+  border-left:4px solid #9a7cff!important;
+}
+.eventPersonal{
+  background:linear-gradient(145deg,rgba(72,217,192,.19),rgba(72,217,192,.055))!important;
+  border-color:rgba(95,229,205,.24)!important;
+  border-left:4px solid #48d9c0!important;
+}
+.trophy{
+  background:linear-gradient(145deg,rgba(242,199,95,.16),rgba(242,199,95,.045))!important;
+  border-color:rgba(242,199,95,.22)!important;
+}
+.day{
+  -webkit-backdrop-filter:blur(14px) saturate(150%);
+  backdrop-filter:blur(14px) saturate(150%);
+}
+.day.artistic{background:linear-gradient(145deg,rgba(154,124,255,.20),rgba(154,124,255,.07))!important}
+.day.personal{background:linear-gradient(145deg,rgba(72,217,192,.20),rgba(72,217,192,.07))!important}
+.day.both{background:linear-gradient(135deg,rgba(154,124,255,.20),rgba(72,217,192,.20))!important}
+nav{
+  background:rgba(14,18,29,.58)!important;
+  border-top:1px solid rgba(255,255,255,.12)!important;
+  box-shadow:0 -10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.09);
+}
+.primary,.secondary,.danger,.iconbtn,.quick button{
+  transition:transform .16s ease,filter .16s ease,background .16s ease,box-shadow .16s ease;
+}
+.primary:active,.secondary:active,.danger:active,.iconbtn:active,.quick button:active{
+  transform:scale(.975);
+  filter:brightness(1.08);
+}
+.modal,.confirm{
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  background:rgba(4,7,13,.38)!important;
+}
+#app{will-change:transform,opacity}
+#app.swipe-out-left{animation:v6OutLeft .16s ease both}
+#app.swipe-out-right{animation:v6OutRight .16s ease both}
+#app.swipe-in-left{animation:v6InLeft .20s cubic-bezier(.22,.78,.28,1) both}
+#app.swipe-in-right{animation:v6InRight .20s cubic-bezier(.22,.78,.28,1) both}
+@keyframes v6OutLeft{to{transform:translateX(-7%);opacity:.35}}
+@keyframes v6OutRight{to{transform:translateX(7%);opacity:.35}}
+@keyframes v6InLeft{from{transform:translateX(8%);opacity:.35}to{transform:translateX(0);opacity:1}}
+@keyframes v6InRight{from{transform:translateX(-8%);opacity:.35}to{transform:translateX(0);opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  #app.swipe-out-left,#app.swipe-out-right,#app.swipe-in-left,#app.swipe-in-right{animation:none!important}
+}
+</style>
+
 </head>
 <body>
 <header><div class="brand"><img src="icon-192.png" alt="Logo"><div><h1>DJ Finanzas</h1><div class="sub">Control financiero & agenda</div></div></div></header>
@@ -143,7 +257,8 @@ function normalize(){
 function uid(){return (crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2))}
 normalize();
 
-let tab="home",month=new Date();month.setDate(1);month.setHours(12,0,0,0);
+let tab="home",month=new Date();
+window.tab=tab;month.setDate(1);month.setHours(12,0,0,0);
 let pendingFlash=null;
 const EUR=n=>new Intl.NumberFormat("es-ES",{style:"currency",currency:"EUR"}).format(Number(n||0));
 const mk=d=>{d=new Date(d);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}`};
@@ -222,6 +337,7 @@ function statusText(s,kind){if(s==="settled")return kind==="income"?"Cobrado":"P
 function signedProjection(n){const cls=n>0?"positive":n<0?"negative":"";const sign=n>0?"+":n<0?"−":"";return `<span class="projection ${cls}">${sign}${EUR(Math.abs(n))}</span>`}
 
 function render(){
+ if(window.tab && window.tab!==tab) tab=window.tab; else window.tab=tab;
  document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));
  document.getElementById("app").innerHTML=tab==="home"?home():tab==="money"?moneyView():tab==="agenda"?agendaView():tab==="stats"?statsView():settingsView();
  if(tab==="stats")setTimeout(drawStats,20);
@@ -239,7 +355,7 @@ function home(){
  <div class="card trophy"><div class="trophyTitle"><span>🏆</span><span>Fondo de Ahorro</span></div><div class="trophyAmount">${EUR(sav.current)}</div><div class="small">${trophyMsg}</div><div class="small" style="margin-top:6px">Ahorro cerrado de meses anteriores: ${EUR(sav.closed)}</div></div>
  <div class="section"><span>Próximos eventos</span><span class="badge">${up.length}</span></div>${up.length?up.map(eventCard).join(""):'<div class="empty">No tienes eventos próximos.</div>'}`;
 }
-function goMoneyFlash(kind){tab="money";pendingFlash={type:kind};render()}
+function goMoneyFlash(kind){tab="money";window.tab=tab;pendingFlash={type:kind};render()}
 function moneyView(){
  const ms=movements(month),incs=ms.filter(x=>x.kind==="income"),exps=ms.filter(x=>x.kind==="expense"),deds=ms.filter(x=>x.kind==="deduction"),fx=fixedForMonth(month);
  return `${monthbar()}
@@ -323,8 +439,61 @@ function setupCanvas(id){const c=document.getElementById(id);if(!c)return null;c
 function drawStats(){
  const o=setupCanvas("trend");if(!o)return;const {ctx,w,h}=o,p={l:10,r:10,t:16,b:28},arr=monthRangeBack(12,month).map(m=>({label:m.toLocaleDateString("es-ES",{month:"short"}),parts:chartParts(m)}));const max=Math.max(1,...arr.flatMap(x=>Object.values(x.parts)));ctx.clearRect(0,0,w,h);ctx.strokeStyle="rgba(255,255,255,.08)";ctx.lineWidth=1;for(let i=0;i<4;i++){const y=p.t+(h-p.t-p.b)*i/3;ctx.beginPath();ctx.moveTo(p.l,y);ctx.lineTo(w-p.r,y);ctx.stroke()}function line(key,color){ctx.strokeStyle=color;ctx.lineWidth=2.3;ctx.lineJoin="round";ctx.lineCap="round";ctx.beginPath();arr.forEach((x,i)=>{const xx=p.l+(w-p.l-p.r)*i/(arr.length-1),yy=h-p.b-(h-p.t-p.b)*x.parts[key]/max;i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy)});ctx.stroke()}line("dj","#f2c75f");line("work","#6da4ff");line("extra","#b889ff");line("exp","#ff7d86");line("ded","#e7a65c");ctx.fillStyle="#9ba6b7";ctx.font="10px -apple-system";ctx.textAlign="center";arr.forEach((x,i)=>{if(i%2===0||i===arr.length-1){const xx=p.l+(w-p.l-p.r)*i/(arr.length-1);ctx.fillText(x.label,xx,h-8)}})
 }
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render()});
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;window.tab=tab;render()});
 if("serviceWorker" in navigator){navigator.serviceWorker.register("./sw.js").catch(()=>{})}
 render();
 </script>
+
+<script id="v6-swipe-navigation">
+(function(){
+  const order=["home","money","agenda","stats","settings"];
+  let startX=0,startY=0,startT=0,tracking=false;
+
+  function interactive(el){
+    return !!el.closest("input,textarea,select,button,a,[contenteditable='true'],canvas");
+  }
+
+  document.addEventListener("touchstart",function(e){
+    if(e.touches.length!==1 || interactive(e.target)) return;
+    const t=e.touches[0];
+    startX=t.clientX; startY=t.clientY; startT=Date.now(); tracking=true;
+  },{passive:true});
+
+  document.addEventListener("touchend",function(e){
+    if(!tracking || e.changedTouches.length!==1){tracking=false;return;}
+    tracking=false;
+    const t=e.changedTouches[0];
+    const dx=t.clientX-startX, dy=t.clientY-startY, dt=Date.now()-startT;
+
+    if(dt>650 || Math.abs(dx)<58 || Math.abs(dx)<Math.abs(dy)*1.35) return;
+
+    const current=order.indexOf(window.tab);
+    if(current<0) return;
+
+    const next=dx<0?current+1:current-1;
+    if(next<0 || next>=order.length) return;
+
+    const app=document.getElementById("app");
+    if(!app) return;
+
+    const outClass=dx<0?"swipe-out-left":"swipe-out-right";
+    const inClass=dx<0?"swipe-in-left":"swipe-in-right";
+
+    app.classList.remove("swipe-out-left","swipe-out-right","swipe-in-left","swipe-in-right");
+    app.classList.add(outClass);
+
+    setTimeout(function(){
+      window.tab=order[next];
+      if(typeof render==="function") render();
+      const fresh=document.getElementById("app");
+      if(fresh){
+        fresh.classList.remove("swipe-out-left","swipe-out-right");
+        fresh.classList.add(inClass);
+        setTimeout(()=>fresh.classList.remove(inClass),240);
+      }
+    },135);
+  },{passive:true});
+})();
+</script>
+
 </body></html>
